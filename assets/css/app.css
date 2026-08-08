@@ -411,6 +411,83 @@ select:hover { border-color: var(--line-strong); }
   border-color: var(--done);
 }
 
+/* ---------- reference images ------------------------------------------ */
+
+/* Placeholder built from the entry's own palette. It is the initial state of
+   every image box, so a blocked, offline or missing image degrades to this
+   rather than to a broken-image icon. */
+.ph {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  background:
+    linear-gradient(150deg,
+      var(--p1, #8a8278) 0%,
+      var(--p2, var(--p1, #a8a096)) 42%,
+      var(--p3, var(--p2, #c9c2b0)) 74%,
+      var(--p4, var(--p3, #8a8278)) 100%);
+}
+.ph-glyph {
+  font-size: 1.15em; line-height: 1;
+  color: rgb(255 255 255 / .82);
+  text-shadow: 0 1px 3px rgb(0 0 0 / .35);
+}
+
+.row-thumb {
+  position: relative; flex: 0 0 auto;
+  width: 3.1rem; height: 3.1rem;
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  background: var(--bg-sunk);
+  border: 1px solid var(--line);
+  font-size: 1rem;
+}
+.row-thumb img {
+  position: relative; z-index: 1;
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  opacity: 0; transition: opacity .3s ease;
+}
+.row-thumb[data-img-state="ready"] img { opacity: 1; }
+.row-thumb[data-img-state="ready"] .ph { opacity: 0; }
+.row[data-done="true"] .row-thumb { filter: grayscale(1); opacity: .55; }
+
+.hero { margin: 1.6rem 0 0; }
+.hero-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--bg-sunk);
+  border: 1px solid var(--line);
+  font-size: 2.6rem;
+}
+.hero-frame img {
+  position: relative; z-index: 1;
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  opacity: 0; transition: opacity .35s ease;
+}
+.hero-frame[data-img-state="ready"] img { opacity: 1; }
+.hero-frame[data-img-state="ready"] .ph { opacity: 0; }
+
+.fig-cap {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: .75rem 1rem; flex-wrap: wrap;
+  margin-top: .5rem;
+  font-size: .76rem; color: var(--ink-3);
+}
+.fig-cap a { color: var(--ink-3); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 2px; }
+.fig-cap a:hover { color: var(--accent); }
+.fig-credit { max-width: 60ch; }
+.fig-sep { opacity: .7; }
+.fig-more { white-space: nowrap; }
+
+/* Explain the placeholder only where it is the final state. */
+.hero-frame[data-img-state="none"] + .fig-cap .fig-credit::after {
+  content: " — no image loaded; open the link to see it on Wikipedia.";
+  opacity: .8;
+}
+
 .row-body { flex: 1 1 auto; min-width: 0; }
 .row-title { display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; }
 .row-name {

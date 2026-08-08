@@ -27,6 +27,7 @@ ATLAS.register({
   entries: [
     {
       id: "amaterasu",
+      image: { wiki: "Amaterasu" },
       name: "Amaterasu",
       sub: "天照大御神 · Amaterasu-Ōmikami",
       group: "Major kami",
@@ -52,6 +53,7 @@ ATLAS.register({
     },
     {
       id: "susanoo",
+      image: { wiki: "Susanoo-no-Mikoto" },
       name: "Susanoo",
       sub: "須佐之男命",
       group: "Major kami",
@@ -77,6 +79,7 @@ ATLAS.register({
     },
     {
       id: "tsukuyomi",
+      image: { wiki: "Tsukuyomi-no-Mikoto" },
       name: "Tsukuyomi",
       sub: "月読",
       group: "Major kami",
@@ -102,6 +105,7 @@ ATLAS.register({
     },
     {
       id: "inari",
+      image: { wiki: "Inari_Ōkami" },
       name: "Inari Ōkami",
       sub: "稲荷大神",
       group: "Major kami",
@@ -127,6 +131,7 @@ ATLAS.register({
     },
     {
       id: "kitsune",
+      image: { wiki: "Kitsune" },
       name: "Kitsune",
       sub: "狐",
       group: "Animal yōkai",
@@ -153,6 +158,7 @@ ATLAS.register({
     },
     {
       id: "tengu",
+      image: { wiki: "Tengu" },
       name: "Tengu",
       sub: "天狗",
       group: "Mountain yōkai",
@@ -179,6 +185,7 @@ ATLAS.register({
     },
     {
       id: "kappa",
+      image: { wiki: "Kappa_(folklore)" },
       name: "Kappa",
       sub: "河童",
       group: "Water yōkai",
@@ -205,6 +212,7 @@ ATLAS.register({
     },
     {
       id: "tanuki",
+      image: { wiki: "Tanuki" },
       name: "Tanuki",
       sub: "狸",
       group: "Animal yōkai",
@@ -231,6 +239,7 @@ ATLAS.register({
     },
     {
       id: "oni",
+      image: { wiki: "Oni" },
       name: "Oni",
       sub: "鬼",
       group: "Demons",
@@ -257,6 +266,7 @@ ATLAS.register({
     },
     {
       id: "yuki-onna",
+      image: { wiki: "Yuki-onna" },
       name: "Yuki-onna",
       sub: "雪女",
       group: "Ghosts & apparitions",
@@ -283,6 +293,7 @@ ATLAS.register({
     },
     {
       id: "raijin",
+      image: { wiki: "Raijin" },
       name: "Raijin",
       sub: "雷神",
       group: "Major kami",
@@ -308,6 +319,7 @@ ATLAS.register({
     },
     {
       id: "fujin",
+      image: { wiki: "Fūjin" },
       name: "Fūjin",
       sub: "風神",
       group: "Major kami",
@@ -333,6 +345,7 @@ ATLAS.register({
     },
     {
       id: "ryujin",
+      image: { wiki: "Ryūjin" },
       name: "Ryūjin",
       sub: "龍神 · Watatsumi",
       group: "Major kami",
@@ -358,6 +371,7 @@ ATLAS.register({
     },
     {
       id: "kirin",
+      image: { wiki: "Qilin" },
       name: "Kirin",
       sub: "麒麟",
       group: "Auspicious creatures",
@@ -383,6 +397,7 @@ ATLAS.register({
     },
     {
       id: "bakeneko",
+      image: { wiki: "Bakeneko" },
       name: "Bakeneko",
       sub: "化け猫",
       group: "Animal yōkai",
@@ -409,6 +424,7 @@ ATLAS.register({
     },
     {
       id: "jorogumo",
+      image: { wiki: "Jorōgumo" },
       name: "Jorōgumo",
       sub: "絡新婦",
       group: "Animal yōkai",
@@ -435,6 +451,7 @@ ATLAS.register({
     },
     {
       id: "tsukumogami",
+      image: { wiki: "Tsukumogami" },
       name: "Tsukumogami",
       sub: "付喪神",
       group: "Object spirits",
@@ -461,6 +478,7 @@ ATLAS.register({
     },
     {
       id: "benzaiten",
+      image: { wiki: "Benzaiten" },
       name: "Benzaiten",
       sub: "弁才天 · Benten",
       group: "Major kami",

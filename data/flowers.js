@@ -30,6 +30,7 @@ ATLAS.register({
   entries: [
     {
       id: "rose",
+      image: { wiki: "Rose" },
       name: "Rose",
       sub: "Rosa spp.",
       group: "Love & Desire",
@@ -62,6 +63,7 @@ ATLAS.register({
     },
     {
       id: "peony",
+      image: { wiki: "Peony" },
       name: "Peony",
       sub: "Paeonia spp.",
       group: "Love & Desire",
@@ -86,6 +88,7 @@ ATLAS.register({
     },
     {
       id: "lavender",
+      image: { wiki: "Lavandula" },
       name: "Lavender",
       sub: "Lavandula angustifolia",
       group: "Doubt & Warning",
@@ -110,6 +113,7 @@ ATLAS.register({
     },
     {
       id: "forget-me-not",
+      image: { wiki: "Myosotis" },
       name: "Forget-me-not",
       sub: "Myosotis spp.",
       group: "Memory & Mourning",
@@ -134,6 +138,7 @@ ATLAS.register({
     },
     {
       id: "iris",
+      image: { wiki: "Iris_(plant)" },
       name: "Iris",
       sub: "Iris spp.",
       group: "Virtue & Courage",
@@ -158,6 +163,7 @@ ATLAS.register({
     },
     {
       id: "poppy",
+      image: { wiki: "Papaver_rhoeas" },
       name: "Poppy",
       sub: "Papaver spp.",
       group: "Memory & Mourning",
@@ -182,6 +188,7 @@ ATLAS.register({
     },
     {
       id: "marigold",
+      image: { wiki: "Tagetes" },
       name: "Marigold",
       sub: "Tagetes / Calendula",
       group: "Grief & Cruelty",
@@ -206,6 +213,7 @@ ATLAS.register({
     },
     {
       id: "hyacinth",
+      image: { wiki: "Hyacinthus" },
       name: "Hyacinth",
       sub: "Hyacinthus orientalis",
       group: "Grief & Cruelty",
@@ -235,6 +243,7 @@ ATLAS.register({
     },
     {
       id: "foxglove",
+      image: { wiki: "Digitalis_purpurea" },
       name: "Foxglove",
       sub: "Digitalis purpurea",
       group: "Doubt & Warning",
@@ -259,6 +268,7 @@ ATLAS.register({
     },
     {
       id: "anemone",
+      image: { wiki: "Anemone_coronaria" },
       name: "Anemone",
       sub: "Anemone coronaria",
       group: "Grief & Cruelty",
@@ -283,6 +293,7 @@ ATLAS.register({
     },
     {
       id: "lily-of-the-valley",
+      image: { wiki: "Lily_of_the_valley" },
       name: "Lily of the valley",
       sub: "Convallaria majalis",
       group: "Hope & Renewal",
@@ -307,6 +318,7 @@ ATLAS.register({
     },
     {
       id: "snowdrop",
+      image: { wiki: "Galanthus" },
       name: "Snowdrop",
       sub: "Galanthus nivalis",
       group: "Hope & Renewal",
@@ -331,6 +343,7 @@ ATLAS.register({
     },
     {
       id: "violet",
+      image: { wiki: "Viola_odorata" },
       name: "Violet",
       sub: "Viola odorata",
       group: "Virtue & Courage",
@@ -355,6 +368,7 @@ ATLAS.register({
     },
     {
       id: "narcissus",
+      image: { wiki: "Narcissus_(plant)" },
       name: "Narcissus / Daffodil",
       sub: "Narcissus spp.",
       group: "Doubt & Warning",
@@ -379,6 +393,7 @@ ATLAS.register({
     },
     {
       id: "chrysanthemum",
+      image: { wiki: "Chrysanthemum" },
       name: "Chrysanthemum",
       sub: "Chrysanthemum morifolium",
       group: "Memory & Mourning",
@@ -403,6 +418,7 @@ ATLAS.register({
     },
     {
       id: "camellia",
+      image: { wiki: "Camellia_japonica" },
       name: "Camellia",
       sub: "Camellia japonica",
       group: "Love & Desire",
@@ -427,6 +443,7 @@ ATLAS.register({
     },
     {
       id: "bluebell",
+      image: { wiki: "Hyacinthoides_non-scripta" },
       name: "Bluebell",
       sub: "Hyacinthoides non-scripta",
       group: "Virtue & Courage",
@@ -451,6 +468,7 @@ ATLAS.register({
     },
     {
       id: "wisteria",
+      image: { wiki: "Wisteria" },
       name: "Wisteria",
       sub: "Wisteria sinensis / floribunda",
       group: "Love & Desire",
@@ -475,6 +493,7 @@ ATLAS.register({
     },
     {
       id: "sunflower",
+      image: { wiki: "Common_sunflower" },
       name: "Sunflower",
       sub: "Helianthus annuus",
       group: "Doubt & Warning",
@@ -499,6 +518,7 @@ ATLAS.register({
     },
     {
       id: "carnation",
+      image: { wiki: "Dianthus_caryophyllus" },
       name: "Carnation",
       sub: "Dianthus caryophyllus",
       group: "Love & Desire",
@@ -529,6 +549,7 @@ ATLAS.register({
     },
     {
       id: "aster",
+      image: { wiki: "Aster_(genus)" },
       name: "Aster",
       sub: "Symphyotrichum / Aster spp.",
       group: "Memory & Mourning",
@@ -553,6 +574,7 @@ ATLAS.register({
     },
     {
       id: "columbine",
+      image: { wiki: "Aquilegia" },
       name: "Columbine",
       sub: "Aquilegia vulgaris",
       group: "Grief & Cruelty",
@@ -577,6 +599,7 @@ ATLAS.register({
     },
     {
       id: "yarrow",
+      image: { wiki: "Achillea_millefolium" },
       name: "Yarrow",
       sub: "Achillea millefolium",
       group: "Virtue & Courage",
@@ -601,6 +624,7 @@ ATLAS.register({
     },
     {
       id: "thistle",
+      image: { wiki: "Thistle" },
       name: "Thistle",
       sub: "Cirsium / Onopordum",
       group: "Virtue & Courage",
@@ -625,6 +649,7 @@ ATLAS.register({
     },
     {
       id: "magnolia",
+      image: { wiki: "Magnolia" },
       name: "Magnolia",
       sub: "Magnolia spp.",
       group: "Virtue & Courage",
@@ -649,6 +674,7 @@ ATLAS.register({
     },
     {
       id: "edelweiss",
+      image: { wiki: "Leontopodium_nivale" },
       name: "Edelweiss",
       sub: "Leontopodium nivale",
       group: "Virtue & Courage",

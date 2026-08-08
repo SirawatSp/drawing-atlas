@@ -28,6 +28,7 @@ ATLAS.register({
   entries: [
     {
       id: "odin",
+      image: { wiki: "Odin" },
       name: "Odin",
       sub: "Óðinn · the All-Father",
       group: "Æsir",
@@ -54,6 +55,7 @@ ATLAS.register({
     },
     {
       id: "thor",
+      image: { wiki: "Thor" },
       name: "Thor",
       sub: "Þórr",
       group: "Æsir",
@@ -79,6 +81,7 @@ ATLAS.register({
     },
     {
       id: "frigg",
+      image: { wiki: "Frigg" },
       name: "Frigg",
       sub: "Frigg",
       group: "Æsir",
@@ -104,6 +107,7 @@ ATLAS.register({
     },
     {
       id: "freyja",
+      image: { wiki: "Freyja" },
       name: "Freyja",
       sub: "Freyja",
       group: "Vanir",
@@ -129,6 +133,7 @@ ATLAS.register({
     },
     {
       id: "freyr",
+      image: { wiki: "Freyr" },
       name: "Freyr",
       sub: "Freyr",
       group: "Vanir",
@@ -154,6 +159,7 @@ ATLAS.register({
     },
     {
       id: "loki",
+      image: { wiki: "Loki" },
       name: "Loki",
       sub: "Loki Laufeyjarson",
       group: "Giants & outsiders",
@@ -179,6 +185,7 @@ ATLAS.register({
     },
     {
       id: "tyr",
+      image: { wiki: "Týr" },
       name: "Týr",
       sub: "Týr",
       group: "Æsir",
@@ -204,6 +211,7 @@ ATLAS.register({
     },
     {
       id: "heimdall",
+      image: { wiki: "Heimdall" },
       name: "Heimdall",
       sub: "Heimdallr",
       group: "Æsir",
@@ -229,6 +237,7 @@ ATLAS.register({
     },
     {
       id: "baldr",
+      image: { wiki: "Baldr" },
       name: "Baldr",
       sub: "Baldr",
       group: "Æsir",
@@ -254,6 +263,7 @@ ATLAS.register({
     },
     {
       id: "hel",
+      image: { wiki: "Hel_(being)" },
       name: "Hel",
       sub: "Hel",
       group: "Giants & outsiders",
@@ -279,6 +289,7 @@ ATLAS.register({
     },
     {
       id: "fenrir",
+      image: { wiki: "Fenrir" },
       name: "Fenrir",
       sub: "Fenrisúlfr",
       group: "Giants & outsiders",
@@ -304,6 +315,7 @@ ATLAS.register({
     },
     {
       id: "jormungandr",
+      image: { wiki: "Jörmungandr" },
       name: "Jörmungandr",
       sub: "Miðgarðsormr",
       group: "Giants & outsiders",
@@ -329,6 +341,7 @@ ATLAS.register({
     },
     {
       id: "sleipnir",
+      image: { wiki: "Sleipnir" },
       name: "Sleipnir",
       sub: "Sleipnir",
       group: "Creatures",
@@ -354,6 +367,7 @@ ATLAS.register({
     },
     {
       id: "huginn-muninn",
+      image: { wiki: "Huginn_and_Muninn" },
       name: "Huginn & Muninn",
       sub: "Thought & Memory",
       group: "Creatures",
@@ -379,6 +393,7 @@ ATLAS.register({
     },
     {
       id: "norns",
+      image: { wiki: "Norns" },
       name: "The Norns",
       sub: "Urðr, Verðandi, Skuld",
       group: "Fate",
@@ -404,6 +419,7 @@ ATLAS.register({
     },
     {
       id: "valkyries",
+      image: { wiki: "Valkyrie" },
       name: "Valkyries",
       sub: "valkyrja · choosers of the slain",
       group: "Fate",
@@ -429,6 +445,7 @@ ATLAS.register({
     },
     {
       id: "yggdrasil",
+      image: { wiki: "Yggdrasil" },
       name: "Yggdrasil",
       sub: "the World Tree",
       group: "Cosmology",

@@ -26,6 +26,7 @@ ATLAS.register({
   entries: [
     {
       id: "zeus",
+      image: { wiki: "Zeus" },
       name: "Zeus",
       sub: "Ζεύς · Roman: Jupiter",
       group: "The Twelve Olympians",
@@ -52,6 +53,7 @@ ATLAS.register({
     },
     {
       id: "hera",
+      image: { wiki: "Hera" },
       name: "Hera",
       sub: "Ἥρα · Roman: Juno",
       group: "The Twelve Olympians",
@@ -78,6 +80,7 @@ ATLAS.register({
     },
     {
       id: "poseidon",
+      image: { wiki: "Poseidon" },
       name: "Poseidon",
       sub: "Ποσειδῶν · Roman: Neptune",
       group: "The Twelve Olympians",
@@ -104,6 +107,7 @@ ATLAS.register({
     },
     {
       id: "demeter",
+      image: { wiki: "Demeter" },
       name: "Demeter",
       sub: "Δημήτηρ · Roman: Ceres",
       group: "The Twelve Olympians",
@@ -130,6 +134,7 @@ ATLAS.register({
     },
     {
       id: "athena",
+      image: { wiki: "Athena" },
       name: "Athena",
       sub: "Ἀθηνᾶ · Roman: Minerva",
       group: "The Twelve Olympians",
@@ -156,6 +161,7 @@ ATLAS.register({
     },
     {
       id: "apollo",
+      image: { wiki: "Apollo" },
       name: "Apollo",
       sub: "Ἀπόλλων · Roman: Apollo",
       group: "The Twelve Olympians",
@@ -182,6 +188,7 @@ ATLAS.register({
     },
     {
       id: "artemis",
+      image: { wiki: "Artemis" },
       name: "Artemis",
       sub: "Ἄρτεμις · Roman: Diana",
       group: "The Twelve Olympians",
@@ -208,6 +215,7 @@ ATLAS.register({
     },
     {
       id: "ares",
+      image: { wiki: "Ares" },
       name: "Ares",
       sub: "Ἄρης · Roman: Mars",
       group: "The Twelve Olympians",
@@ -234,6 +242,7 @@ ATLAS.register({
     },
     {
       id: "aphrodite",
+      image: { wiki: "Aphrodite" },
       name: "Aphrodite",
       sub: "Ἀφροδίτη · Roman: Venus",
       group: "The Twelve Olympians",
@@ -260,6 +269,7 @@ ATLAS.register({
     },
     {
       id: "hephaestus",
+      image: { wiki: "Hephaestus" },
       name: "Hephaestus",
       sub: "Ἥφαιστος · Roman: Vulcan",
       group: "The Twelve Olympians",
@@ -286,6 +296,7 @@ ATLAS.register({
     },
     {
       id: "hermes",
+      image: { wiki: "Hermes" },
       name: "Hermes",
       sub: "Ἑρμῆς · Roman: Mercury",
       group: "The Twelve Olympians",
@@ -312,6 +323,7 @@ ATLAS.register({
     },
     {
       id: "dionysus",
+      image: { wiki: "Dionysus" },
       name: "Dionysus",
       sub: "Διόνυσος · Roman: Bacchus",
       group: "The Twelve Olympians",
@@ -338,6 +350,7 @@ ATLAS.register({
     },
     {
       id: "hestia",
+      image: { wiki: "Hestia" },
       name: "Hestia",
       sub: "Ἑστία · Roman: Vesta",
       group: "The Twelve Olympians",
@@ -364,6 +377,7 @@ ATLAS.register({
     },
     {
       id: "hades",
+      image: { wiki: "Hades" },
       name: "Hades",
       sub: "ᾍδης · Roman: Pluto / Dis",
       group: "Chthonic powers",
@@ -390,6 +404,7 @@ ATLAS.register({
     },
     {
       id: "persephone",
+      image: { wiki: "Persephone" },
       name: "Persephone",
       sub: "Περσεφόνη · Kore · Roman: Proserpina",
       group: "Chthonic powers",
@@ -416,6 +431,7 @@ ATLAS.register({
     },
     {
       id: "hecate",
+      image: { wiki: "Hecate" },
       name: "Hecate",
       sub: "Ἑκάτη · Roman: Trivia",
       group: "Chthonic powers",
@@ -442,6 +458,7 @@ ATLAS.register({
     },
     {
       id: "eros",
+      image: { wiki: "Eros" },
       name: "Eros",
       sub: "Ἔρως · Roman: Cupid / Amor",
       group: "Personifications",
@@ -468,6 +485,7 @@ ATLAS.register({
     },
     {
       id: "nemesis",
+      image: { wiki: "Nemesis" },
       name: "Nemesis",
       sub: "Νέμεσις · Roman: Invidia",
       group: "Personifications",
@@ -494,6 +512,7 @@ ATLAS.register({
     },
     {
       id: "iris-goddess",
+      image: { wiki: "Iris_(mythology)" },
       name: "Iris",
       sub: "Ἶρις",
       group: "Personifications",
@@ -520,6 +539,7 @@ ATLAS.register({
     },
     {
       id: "nyx",
+      image: { wiki: "Nyx" },
       name: "Nyx",
       sub: "Νύξ · Roman: Nox",
       group: "Personifications",

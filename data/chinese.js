@@ -28,6 +28,7 @@ ATLAS.register({
   entries: [
     {
       id: "pangu",
+      image: { wiki: "Pangu" },
       name: "Pangu",
       sub: "盤古",
       group: "Creation",
@@ -53,6 +54,7 @@ ATLAS.register({
     },
     {
       id: "nuwa",
+      image: { wiki: "Nüwa" },
       name: "Nüwa",
       sub: "女媧",
       group: "Creation",
@@ -78,6 +80,7 @@ ATLAS.register({
     },
     {
       id: "fuxi",
+      image: { wiki: "Fuxi" },
       name: "Fuxi",
       sub: "伏羲",
       group: "Creation",
@@ -103,6 +106,7 @@ ATLAS.register({
     },
     {
       id: "jade-emperor",
+      image: { wiki: "Jade_Emperor" },
       name: "Jade Emperor",
       sub: "玉皇大帝 · Yùhuáng Dàdì",
       group: "Celestial bureaucracy",
@@ -128,6 +132,7 @@ ATLAS.register({
     },
     {
       id: "guanyin",
+      image: { wiki: "Guanyin" },
       name: "Guanyin",
       sub: "觀音 · Avalokiteśvara",
       group: "Buddhist figures",
@@ -153,6 +158,7 @@ ATLAS.register({
     },
     {
       id: "sun-wukong",
+      image: { wiki: "Sun_Wukong" },
       name: "Sun Wukong",
       sub: "孫悟空 · The Monkey King",
       group: "Heroes & rebels",
@@ -178,6 +184,7 @@ ATLAS.register({
     },
     {
       id: "nezha",
+      image: { wiki: "Nezha" },
       name: "Nezha",
       sub: "哪吒",
       group: "Heroes & rebels",
@@ -203,6 +210,7 @@ ATLAS.register({
     },
     {
       id: "change",
+      image: { wiki: "Chang'e" },
       name: "Chang'e",
       sub: "嫦娥",
       group: "Celestial bureaucracy",
@@ -228,6 +236,7 @@ ATLAS.register({
     },
     {
       id: "houyi",
+      image: { wiki: "Houyi" },
       name: "Houyi",
       sub: "后羿",
       group: "Heroes & rebels",
@@ -253,6 +262,7 @@ ATLAS.register({
     },
     {
       id: "guandi",
+      image: { wiki: "Guan_Yu" },
       name: "Guan Yu / Guandi",
       sub: "關羽 · 關帝",
       group: "Celestial bureaucracy",
@@ -278,6 +288,7 @@ ATLAS.register({
     },
     {
       id: "mazu",
+      image: { wiki: "Mazu" },
       name: "Mazu",
       sub: "媽祖 · Tianhou",
       group: "Celestial bureaucracy",
@@ -303,6 +314,7 @@ ATLAS.register({
     },
     {
       id: "zao-jun",
+      image: { wiki: "Kitchen_God" },
       name: "Zao Jun",
       sub: "灶君 · The Kitchen God",
       group: "Celestial bureaucracy",
@@ -328,6 +340,7 @@ ATLAS.register({
     },
     {
       id: "yanluo",
+      image: { wiki: "King_Yan" },
       name: "Yanluo Wang",
       sub: "閻羅王",
       group: "Underworld",
@@ -353,6 +366,7 @@ ATLAS.register({
     },
     {
       id: "eight-immortals",
+      image: { wiki: "Eight_Immortals" },
       name: "The Eight Immortals",
       sub: "八仙 · Baxian",
       group: "Immortals",
@@ -378,6 +392,7 @@ ATLAS.register({
     },
     {
       id: "azure-dragon",
+      image: { wiki: "Azure_Dragon" },
       name: "Azure Dragon",
       sub: "青龍 · Qinglong",
       group: "The Four Symbols",
@@ -404,6 +419,7 @@ ATLAS.register({
     },
     {
       id: "vermilion-bird",
+      image: { wiki: "Vermilion_Bird" },
       name: "Vermilion Bird",
       sub: "朱雀 · Zhuque",
       group: "The Four Symbols",
@@ -429,6 +445,7 @@ ATLAS.register({
     },
     {
       id: "white-tiger",
+      image: { wiki: "White_Tiger_(China)" },
       name: "White Tiger",
       sub: "白虎 · Baihu",
       group: "The Four Symbols",
@@ -454,6 +471,7 @@ ATLAS.register({
     },
     {
       id: "black-tortoise",
+      image: { wiki: "Black_Tortoise" },
       name: "Black Tortoise",
       sub: "玄武 · Xuanwu",
       group: "The Four Symbols",
@@ -479,6 +497,7 @@ ATLAS.register({
     },
     {
       id: "qilin",
+      image: { wiki: "Qilin" },
       name: "Qilin",
       sub: "麒麟",
       group: "Auspicious creatures",
@@ -504,6 +523,7 @@ ATLAS.register({
     },
     {
       id: "fenghuang",
+      image: { wiki: "Fenghuang" },
       name: "Fenghuang",
       sub: "鳳凰",
       group: "Auspicious creatures",

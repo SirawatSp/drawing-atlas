@@ -11,6 +11,7 @@
   "use strict";
 
   var A = window.ATLAS;
+  var IMG = window.ATLAS_IMAGES;
   var main = document.getElementById("main");
   var searchInput = document.getElementById("search");
   var toastEl = document.getElementById("toast");
@@ -62,6 +63,85 @@
     note: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11l4 4v12H5z"/><path d="M8 11h8M8 15h5"/></svg>'
   };
 
+  /* ---- reference images ----------------------------------------------- */
+
+  /** Palette-derived placeholder: what shows before, and instead of, a photo. */
+  function placeholderHTML(entry, cat) {
+    var pal = entry.palette && entry.palette.length ? entry.palette : ["#8a8278", "#c9c2b0"];
+    var vars = pal.slice(0, 4).map(function (c, i) { return "--p" + (i + 1) + ":" + c; }).join(";");
+    return '<span class="ph" style="' + attr(vars) + '" aria-hidden="true">' +
+      '<span class="ph-glyph">' + esc((cat && cat.glyph) || "◆") + "</span></span>";
+  }
+
+  /**
+   * Lazily fills an image container once it scrolls into view. Containers start
+   * as a placeholder, so a failed or blocked fetch simply leaves the placeholder
+   * in place rather than showing a broken image.
+   */
+  var observer = null;
+  function observeImages(root) {
+    var targets = root.querySelectorAll("[data-img-wiki]:not([data-img-done])");
+    if (!targets.length || !IMG) return;
+
+    if (!("IntersectionObserver" in window)) {
+      for (var i = 0; i < targets.length; i++) fillImage(targets[i]);
+      return;
+    }
+    if (!observer) {
+      observer = new IntersectionObserver(function (entries) {
+        for (var j = 0; j < entries.length; j++) {
+          if (!entries[j].isIntersecting) continue;
+          observer.unobserve(entries[j].target);
+          fillImage(entries[j].target);
+        }
+      }, { rootMargin: "250px" });
+    }
+    for (var k = 0; k < targets.length; k++) observer.observe(targets[k]);
+  }
+
+  function fillImage(box) {
+    if (box.getAttribute("data-img-done")) return;
+    box.setAttribute("data-img-done", "1");
+
+    var wiki = box.getAttribute("data-img-wiki");
+    var alt = box.getAttribute("data-img-alt") || "";
+    var wantCredit = box.getAttribute("data-img-credit") === "1";
+
+    IMG.resolve({ wiki: wiki }).then(function (data) {
+      if (!data) { box.setAttribute("data-img-state", "none"); return; }
+
+      var img = document.createElement("img");
+      img.alt = alt;
+      img.loading = "lazy";
+      img.decoding = "async";
+      if (data.width) img.width = data.width;
+      if (data.height) img.height = data.height;
+      img.addEventListener("load", function () { box.setAttribute("data-img-state", "ready"); });
+      img.addEventListener("error", function () {
+        box.setAttribute("data-img-state", "none");
+        img.remove();
+      });
+      img.src = data.thumb;
+      box.insertBefore(img, box.firstChild);
+
+      if (!wantCredit) return;
+
+      var cap = box.parentNode && box.parentNode.querySelector(".fig-credit");
+      if (!cap) return;
+      IMG.credit(data.file).then(function (c) {
+        var pieces = [];
+        if (c && c.artist) pieces.push(esc(c.artist));
+        if (c && c.licence) pieces.push(esc(c.licence));
+        var where = (c && c.filePage) || data.page;
+        cap.innerHTML =
+          '<a href="' + attr(where) + '" target="_blank" rel="noopener noreferrer">' +
+          (pieces.length ? pieces.join(" · ") : "Image source") + "</a>" +
+          ' <span class="fig-sep">via</span> ' +
+          '<a href="' + attr(data.page) + '" target="_blank" rel="noopener noreferrer">Wikipedia</a>';
+      });
+    });
+  }
+
   function ringHTML(pct, done, total) {
     var r = 39, c = 2 * Math.PI * r;
     var offset = c * (1 - Math.max(0, Math.min(100, pct)) / 100);
@@ -88,9 +168,16 @@
     var href = "#/c/" + entry.categoryId + "/" + entry.id;
     var hasNote = !!(s.note && s.note.trim());
 
+    var thumb = entry.image && entry.image.wiki
+      ? '<a class="row-thumb" href="' + attr(href) + '" tabindex="-1" aria-hidden="true"' +
+        ' data-img-wiki="' + attr(entry.image.wiki) + '"' +
+        ' data-img-alt="' + attr(entry.name) + '">' + placeholderHTML(entry, cat) + "</a>"
+      : "";
+
     return '<li class="row" data-key="' + attr(entry.key) + '" data-done="' + (s.done ? "true" : "false") + '">' +
       '<input class="check" type="checkbox" ' + (s.done ? "checked" : "") +
         ' data-act="done" aria-label="' + attr("Mark " + entry.name + " as studied") + '">' +
+      thumb +
       '<div class="row-body">' +
         '<div class="row-title">' +
           '<a class="row-name" href="' + attr(href) + '">' + esc(entry.name) + "</a>" +
@@ -288,6 +375,10 @@
       viewCategory(catId);
     });
 
+    // This view re-renders itself on filter/sort/group changes without going
+    // through render(), so it wires up its own images too. fillImage is
+    // idempotent, so the duplicate call from render() is a no-op.
+    observeImages(main);
     document.title = cat.name + " · Drawing Atlas";
   }
 
@@ -369,6 +460,20 @@
               "<span>" + (s.star ? "Starred" : "Star") + "</span></button>" +
           "</div>" +
         "</div>" +
+
+        (entry.image && entry.image.wiki
+          ? '<figure class="hero">' +
+              '<div class="hero-frame" data-img-wiki="' + attr(entry.image.wiki) + '"' +
+                ' data-img-alt="' + attr(entry.name + " — reference image") + '"' +
+                ' data-img-credit="1">' + placeholderHTML(entry, cat) + "</div>" +
+              '<figcaption class="fig-cap">' +
+                '<span class="fig-credit"><a href="' + attr("https://en.wikipedia.org/wiki/" + encodeURIComponent(entry.image.wiki)) +
+                  '" target="_blank" rel="noopener noreferrer">Wikipedia — ' + esc(entry.image.wiki.replace(/_/g, " ")) + "</a></span>" +
+                '<a class="fig-more" href="' + attr(IMG ? IMG.searchUrl(entry.name) : "#") +
+                  '" target="_blank" rel="noopener noreferrer">More on Commons →</a>' +
+              "</figcaption>" +
+            "</figure>"
+          : "") +
 
         block("Lore & meaning", loreHTML) +
         block("Meaning by variant", variantsHTML) +
@@ -455,6 +560,7 @@
             : '<div class="empty"><b>No matches</b>Try a shorter or different term.</div>')
         : "");
 
+    observeImages(main); // same reason as viewCategory: re-rendered in place
     document.title = (needle ? '"' + needle + '" · ' : "") + "Search · Drawing Atlas";
   }
 
@@ -552,6 +658,9 @@
     else if (route.name === "starred") viewStarred();
     else if (route.name === "search") { searchInput.value = route.q; viewSearch(route.q); }
     else viewNotFound();
+
+    // Single place images get wired up, so no view can forget to do it.
+    observeImages(main);
   }
 
   window.addEventListener("hashchange", render);
@@ -592,21 +701,40 @@
   var themeBtn = document.getElementById("theme-toggle");
 
   function prefersDark() {
-    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    return !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  }
+
+  /* What the viewer is actually looking at right now — which is not always what
+     our own pref says, because an embedding host may have stamped data-theme
+     itself. Reading the rendered state keeps one click on the toggle equal to
+     one visible flip. */
+  function currentlyDark() {
+    var stamped = document.documentElement.getAttribute("data-theme");
+    if (stamped === "dark") return true;
+    if (stamped === "light") return false;
+    return prefersDark();
   }
   function applyTheme(mode) {
-    // "auto" removes the attribute so prefers-color-scheme decides.
-    if (mode === "light" || mode === "dark") document.documentElement.setAttribute("data-theme", mode);
-    else document.documentElement.removeAttribute("data-theme");
+    if (mode === "light" || mode === "dark") {
+      document.documentElement.setAttribute("data-theme", mode);
+      return;
+    }
+    // "auto" means "let prefers-color-scheme decide" — but only clear the
+    // attribute if this app is the thing that set it. When the page is embedded
+    // somewhere that stamps data-theme itself (the Artifacts host does), removing
+    // it would clobber the viewer's explicit choice on first load.
+    if (document.documentElement.getAttribute("data-atlas-theme") === "1") {
+      document.documentElement.removeAttribute("data-theme");
+      document.documentElement.removeAttribute("data-atlas-theme");
+    }
   }
 
   applyTheme(A.getPref("theme", "auto"));
 
   themeBtn.addEventListener("click", function () {
-    var current = A.getPref("theme", "auto");
-    var effectiveDark = current === "dark" || (current === "auto" && prefersDark());
-    var next = effectiveDark ? "light" : "dark";
+    var next = currentlyDark() ? "light" : "dark";
     A.setPref("theme", next);
+    document.documentElement.setAttribute("data-atlas-theme", "1");
     applyTheme(next);
   });
 

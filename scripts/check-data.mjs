@@ -89,6 +89,13 @@ for (const { file, cat } of categories) {
 
     if (!Array.isArray(e.draw) || e.draw.length === 0) fail(`${label}: missing draw notes`);
 
+    if (!e.image || !e.image.wiki) {
+      fail(`${label}: missing image.wiki (the Wikipedia article to take a reference image from)`);
+    } else if (typeof e.image.wiki !== "string" || /[?#]/.test(e.image.wiki)) {
+      // A fragment or query would resolve to the wrong article, or to none.
+      fail(`${label}: image.wiki "${e.image.wiki}" must be a bare article title`);
+    }
+
     if (!Array.isArray(e.refs) || e.refs.length === 0) {
       fail(`${label}: no references — every entry must cite its sources`);
     } else {

@@ -31,8 +31,49 @@ Companion to two books worth owning:
 Where an entry overlaps with those books, the summary here is built from independent
 web sources and cites them — it is a cross-reference, not a substitute.
 
+## Reference images
+
+Entries name a **Wikipedia article** (`image: { wiki: "Common_raven" }`) and the
+site resolves that article's lead image at view time.
+
+This is deliberate. Real Commons URLs embed an MD5 hash prefix that cannot be
+derived from a filename, so hardcoding image URLs means guessing and getting a
+wall of 404s. Keying to an article title is verifiable, and it self-heals when
+Wikipedia changes its lead image.
+
+Targets are chosen for the *image*, not the lore. `birds/raven` cites
+`Huginn_and_Muninn` as a source — that is where the Odin material comes from —
+but its image target is `Common_raven`, because you want a photograph of the bird.
+
+**Where images appear:** a 16:9 hero on each entry (with author and licence
+fetched from Commons and a link to the file page), and a thumbnail on each
+checklist row, lazy-loaded as you scroll and cached in `localStorage`.
+
+**Where they don't:** anywhere that blocks cross-origin requests. Every image box
+starts as a placeholder generated from that entry's own four-colour palette, so a
+blocked, offline or missing image degrades to something deliberate instead of a
+broken-image icon. Notably the published Claude artifact shows only placeholders —
+its Content-Security-Policy blocks all external hosts. Serve the site over
+http(s) and the images appear.
+
+To find bad targets:
+
+```bash
+node scripts/check-images.mjs            # summary
+node scripts/check-images.mjs --verbose  # every resolved URL
+```
+
+It resolves all 121 against the live API and reports which articles don't exist,
+which have no lead image, and which titles have gone stale via a redirect.
+
+**Licensing:** Wikipedia lead images are freely licensed but not all public
+domain — many are CC BY-SA. The hero caption shows the author and licence pulled
+from Commons for that specific file, which is why attribution is fetched rather
+than assumed.
+
 ## Each entry gives you
 
+- **Reference image** — the subject's lead image from Wikipedia, with attribution
 - **Meaning** — the one-line symbolic reading
 - **Lore** — two paragraphs of the myth or history that produced that reading
 - **Meaning by variant** — where colour or form changes the message (rose, carnation, hyacinth)

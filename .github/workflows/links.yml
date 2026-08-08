@@ -20,5 +20,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Check links
+      - name: Check reference links
         run: node scripts/check-links.mjs
+
+      # Runs even if the link check failed — the two report different problems
+      # and you want both lists in one run.
+      - name: Check image targets resolve
+        if: always()
+        run: node scripts/check-images.mjs

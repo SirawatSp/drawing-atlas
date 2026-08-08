@@ -25,6 +25,7 @@ ATLAS.register({
   entries: [
     {
       id: "raven",
+      image: { wiki: "Common_raven" },
       name: "Raven",
       sub: "Corvus corax",
       group: "Prophecy & Omen",
@@ -50,6 +51,7 @@ ATLAS.register({
     },
     {
       id: "crow",
+      image: { wiki: "Carrion_crow" },
       name: "Crow",
       sub: "Corvus corone / brachyrhynchos",
       group: "Prophecy & Omen",
@@ -74,6 +76,7 @@ ATLAS.register({
     },
     {
       id: "owl",
+      image: { wiki: "Barn_owl" },
       name: "Owl",
       sub: "Athene noctua / Tyto alba",
       group: "Wisdom & Sight",
@@ -98,6 +101,7 @@ ATLAS.register({
     },
     {
       id: "swallow",
+      image: { wiki: "Barn_swallow" },
       name: "Swallow",
       sub: "Hirundo rustica",
       group: "Return & Renewal",
@@ -122,6 +126,7 @@ ATLAS.register({
     },
     {
       id: "robin",
+      image: { wiki: "European_robin" },
       name: "Robin",
       sub: "Erithacus rubecula",
       group: "Return & Renewal",
@@ -146,6 +151,7 @@ ATLAS.register({
     },
     {
       id: "crane",
+      image: { wiki: "Red-crowned_crane" },
       name: "Crane",
       sub: "Grus japonensis and others",
       group: "Longevity & Fidelity",
@@ -170,6 +176,7 @@ ATLAS.register({
     },
     {
       id: "peacock",
+      image: { wiki: "Indian_peafowl" },
       name: "Peacock",
       sub: "Pavo cristatus",
       group: "Pride & Splendour",
@@ -194,6 +201,7 @@ ATLAS.register({
     },
     {
       id: "magpie",
+      image: { wiki: "Eurasian_magpie" },
       name: "Magpie",
       sub: "Pica pica",
       group: "Prophecy & Omen",
@@ -218,6 +226,7 @@ ATLAS.register({
     },
     {
       id: "wren",
+      image: { wiki: "Eurasian_wren" },
       name: "Wren",
       sub: "Troglodytes troglodytes",
       group: "Wisdom & Sight",
@@ -242,6 +251,7 @@ ATLAS.register({
     },
     {
       id: "nightingale",
+      image: { wiki: "Common_nightingale" },
       name: "Nightingale",
       sub: "Luscinia megarhynchos",
       group: "Song & Sorrow",
@@ -266,6 +276,7 @@ ATLAS.register({
     },
     {
       id: "swan",
+      image: { wiki: "Mute_swan" },
       name: "Swan",
       sub: "Cygnus olor / cygnus",
       group: "Longevity & Fidelity",
@@ -290,6 +301,7 @@ ATLAS.register({
     },
     {
       id: "dove",
+      image: { wiki: "European_turtle_dove" },
       name: "Dove",
       sub: "Columba / Streptopelia",
       group: "Peace & Devotion",
@@ -314,6 +326,7 @@ ATLAS.register({
     },
     {
       id: "kingfisher",
+      image: { wiki: "Common_kingfisher" },
       name: "Kingfisher",
       sub: "Alcedo atthis",
       group: "Peace & Devotion",
@@ -338,6 +351,7 @@ ATLAS.register({
     },
     {
       id: "hoopoe",
+      image: { wiki: "Eurasian_hoopoe" },
       name: "Hoopoe",
       sub: "Upupa epops",
       group: "Prophecy & Omen",
@@ -362,6 +376,7 @@ ATLAS.register({
     },
     {
       id: "pelican",
+      image: { wiki: "Pelican" },
       name: "Pelican",
       sub: "Pelecanus spp.",
       group: "Peace & Devotion",
@@ -386,6 +401,7 @@ ATLAS.register({
     },
     {
       id: "goldfinch",
+      image: { wiki: "European_goldfinch" },
       name: "Goldfinch",
       sub: "Carduelis carduelis",
       group: "Song & Sorrow",
@@ -410,6 +426,7 @@ ATLAS.register({
     },
     {
       id: "eagle",
+      image: { wiki: "Golden_eagle" },
       name: "Eagle",
       sub: "Aquila chrysaetos",
       group: "Pride & Splendour",
@@ -434,6 +451,7 @@ ATLAS.register({
     },
     {
       id: "cuckoo",
+      image: { wiki: "Common_cuckoo" },
       name: "Cuckoo",
       sub: "Cuculus canorus",
       group: "Return & Renewal",
@@ -458,6 +476,7 @@ ATLAS.register({
     },
     {
       id: "heron",
+      image: { wiki: "Grey_heron" },
       name: "Heron",
       sub: "Ardea cinerea",
       group: "Wisdom & Sight",
@@ -482,6 +501,7 @@ ATLAS.register({
     },
     {
       id: "hummingbird",
+      image: { wiki: "Hummingbird" },
       name: "Hummingbird",
       sub: "Trochilidae",
       group: "Pride & Splendour",
