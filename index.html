@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drawing Atlas</title>
+<meta name="description" content="A checklist and reference for studying symbolic subjects before drawing them — flowers, birds, and the gods of Greece, China, Japan and the North.">
+<meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14151a" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9D%80%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#/" aria-label="Drawing Atlas home">
+      <span class="brand-mark" aria-hidden="true">❀</span>
+      <span class="brand-text">
+        <strong>Drawing&nbsp;Atlas</strong>
+        <small>study before you draw</small>
+      </span>
+    </a>
+
+    <div class="topbar-tools">
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+        <input id="search" type="search" placeholder="Search all subjects…" autocomplete="off"
+               aria-label="Search all subjects" spellcheck="false">
+        <kbd class="search-kbd" aria-hidden="true">/</kbd>
+      </div>
+      <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle colour theme" title="Toggle theme">
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="app"><!-- rendered by app.js --></main>
+
+<footer class="site-foot">
+  <p>
+    Meanings are compiled from the sources linked on every entry. Symbolism is
+    not a fixed system — where traditions disagree, both readings are given.
+  </p>
+  <p class="foot-links">
+    <button type="button" class="linky" data-action="export">Export progress</button>
+    <button type="button" class="linky" data-action="import">Import progress</button>
+    <button type="button" class="linky danger" data-action="reset">Reset progress</button>
+  </p>
+</footer>
+
+<input type="file" id="import-file" accept="application/json" hidden>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/js/atlas.js"></script>
+<script src="data/flowers.js"></script>
+<script src="data/birds.js"></script>
+<script src="data/greek.js"></script>
+<script src="data/chinese.js"></script>
+<script src="data/japanese.js"></script>
+<script src="data/norse.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
