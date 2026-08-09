@@ -14,14 +14,14 @@ summary was built from, so nothing has to be taken on trust.
 
 | Category | Entries | Covers |
 | --- | --- | --- |
-| Flowers | 32 | Victorian floriography — sentiment, colour codes, conflicting dictionaries |
+| Flowers | 103 | Victorian floriography — sentiment, colour codes, conflicting dictionaries |
 | Birds | 20 | Omens, messengers, and the same bird meaning opposite things in two places |
 | Greek gods | 20 | Olympians, chthonics and personifications, read by their attributes |
 | Chinese lore & gods | 20 | Creation figures, the celestial bureaucracy, the Four Symbols |
 | Japanese kami & yōkai | 18 | Shintō deities and the uncanny things at the edge of the village |
 | Norse gods | 17 | Æsir, Vanir, giants, and the cosmology they are all falling through |
 
-**127 subjects, 294 reference links.**
+**198 subjects, 437 reference links.**
 
 Companion to two books worth owning:
 
@@ -63,7 +63,7 @@ node scripts/check-images.mjs            # summary
 node scripts/check-images.mjs --verbose  # every resolved URL
 ```
 
-It resolves all 127 against the live API and reports which articles don't exist,
+It resolves all 198 against the live API and reports which articles don't exist,
 which have no lead image, and which titles have gone stale via a redirect.
 
 **Licensing:** Wikipedia lead images are freely licensed but not all public
