@@ -36,11 +36,13 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      # enablement turns Pages on via the API if it has never been enabled, so a
-      # fresh repo needs no visit to Settings → Pages.
+      # NB: do not add `enablement: true` here. Creating a Pages site is
+      # POST /repos/{owner}/{repo}/pages, which requires admin permission —
+      # GITHUB_TOKEN cannot hold that regardless of the `permissions:` block
+      # above, so it fails with "Resource not accessible by integration".
+      # Pages must be switched on once by a repo admin:
+      #   Settings → Pages → Build and deployment → Source: GitHub Actions
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
