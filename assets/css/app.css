@@ -387,9 +387,11 @@ select:hover { border-color: var(--line-strong); }
 
 /* ---------- card view (default) --------------------------------------- */
 
+/* Three across on a desktop container rather than four, so the reference image
+   is big enough to actually study before drawing. */
 .list[data-view="grid"] {
-  gap: 1.1rem;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.35rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 }
 
 .list[data-view="grid"] .row {
@@ -411,7 +413,7 @@ select:hover { border-color: var(--line-strong); }
   width: 100%; height: auto;
   aspect-ratio: 4 / 3;
   border: 0; border-radius: 0;
-  font-size: 2.2rem;
+  font-size: 2.8rem;
 }
 
 /* Checkbox and star float over the image, so the card is still one-click
@@ -423,7 +425,7 @@ select:hover { border-color: var(--line-strong); }
 }
 .list[data-view="grid"] .check {
   left: .55rem; margin: 0;
-  width: 1.5rem; height: 1.5rem;
+  width: 1.65rem; height: 1.65rem;
   background: color-mix(in oklab, var(--surface) 82%, transparent);
   border-color: color-mix(in oklab, var(--ink) 35%, transparent);
   box-shadow: var(--shadow-sm);
@@ -444,13 +446,14 @@ select:hover { border-color: var(--line-strong); }
   .list[data-view="grid"] .star { background: var(--surface); }
 }
 
-.list[data-view="grid"] .row-body { padding: .85rem .95rem 1rem; }
+.list[data-view="grid"] .row-body { padding: 1.05rem 1.15rem 1.2rem; }
 .list[data-view="grid"] .row-title { gap: .3rem; }
-.list[data-view="grid"] .row-name { font-size: 1.12rem; }
-.list[data-view="grid"] .row-sub { display: block; width: 100%; }
+.list[data-view="grid"] .row-name { font-size: 1.3rem; line-height: 1.25; }
+.list[data-view="grid"] .row-sub { display: block; width: 100%; font-size: .82rem; }
 .list[data-view="grid"] .row-meaning {
-  font-size: .885rem; margin-top: .35rem; -webkit-line-clamp: 3;
+  font-size: .95rem; line-height: 1.5; margin-top: .45rem; -webkit-line-clamp: 3;
 }
+.list[data-view="grid"] .row-cat { font-size: .7rem; }
 
 /* A finished card should read as finished at a glance across a whole grid. */
 .list[data-view="grid"] .row[data-done="true"] .row-thumb { filter: grayscale(1); opacity: .45; }
