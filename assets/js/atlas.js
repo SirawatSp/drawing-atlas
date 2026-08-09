@@ -9,6 +9,7 @@
 
   var STORE_KEY = "drawing-atlas.progress.v1";
   var PREFS_KEY = "drawing-atlas.prefs.v1";
+  var SEED_KEY = "drawing-atlas.seeded.v1";
 
   var categories = [];
   var byId = Object.create(null);
@@ -65,7 +66,46 @@
 
     categories.push(category);
     byId[category.id] = category;
+    seedDrawn(entries);
     return category;
+  }
+
+  /**
+   * Entries carrying `drawn: "<date>"` are ones already drawn, recorded in the
+   * data so the fact travels with the repo instead of living only in one
+   * browser. They are ticked automatically the first time this browser loads
+   * the site.
+   *
+   * Seeding runs once ever, guarded by its own flag rather than by "is progress
+   * empty" — otherwise unticking a seeded entry and reloading would silently
+   * re-tick it, and the checkbox would appear broken.
+   */
+  function seedDrawn(entries) {
+    var alreadySeeded;
+    try {
+      alreadySeeded = localStorage.getItem(SEED_KEY);
+    } catch (err) {
+      return; // storage unavailable: nothing to seed into
+    }
+    if (alreadySeeded) return;
+
+    var touched = false;
+    for (var i = 0; i < entries.length; i++) {
+      var e = entries[i];
+      if (!e.drawn) continue;
+      if (progress[e.key] && progress[e.key].done) continue;
+      progress[e.key] = progress[e.key] || {};
+      progress[e.key].done = true;
+      touched = true;
+    }
+    if (touched) persist();
+  }
+
+  /** Called once after all categories have registered. */
+  function finishSeeding() {
+    try {
+      if (!localStorage.getItem(SEED_KEY)) localStorage.setItem(SEED_KEY, String(Date.now()));
+    } catch (err) {}
   }
 
   /* ---- lookups -------------------------------------------------------- */
@@ -206,6 +246,7 @@
 
   window.ATLAS = {
     register: register,
+    finishSeeding: finishSeeding,
     categories: categories,
     getCategory: getCategory,
     getEntry: getEntry,

@@ -113,6 +113,7 @@ ATLAS.register({
     },
     {
       id: "forget-me-not",
+      drawn: "2026-08-09",
       image: { wiki: "Myosotis" },
       name: "Forget-me-not",
       sub: "Myosotis spp.",
@@ -213,6 +214,7 @@ ATLAS.register({
     },
     {
       id: "hyacinth",
+      drawn: "2026-08-09",
       image: { wiki: "Hyacinthus" },
       name: "Hyacinth",
       sub: "Hyacinthus orientalis",
@@ -268,6 +270,7 @@ ATLAS.register({
     },
     {
       id: "anemone",
+      drawn: "2026-08-09",
       image: { wiki: "Anemone_coronaria" },
       name: "Anemone",
       sub: "Anemone coronaria",
@@ -293,6 +296,7 @@ ATLAS.register({
     },
     {
       id: "lily-of-the-valley",
+      drawn: "2026-08-09",
       image: { wiki: "Lily_of_the_valley" },
       name: "Lily of the valley",
       sub: "Convallaria majalis",
@@ -418,6 +422,7 @@ ATLAS.register({
     },
     {
       id: "camellia",
+      drawn: "2026-08-09",
       image: { wiki: "Camellia_japonica" },
       name: "Camellia",
       sub: "Camellia japonica",
@@ -699,6 +704,7 @@ ATLAS.register({
     },
     {
       id: "dogwood",
+      drawn: "2026-08-09",
       image: { wiki: "Cornus_florida" },
       name: "Dogwood",
       sub: "Cornus florida",
@@ -726,6 +732,7 @@ ATLAS.register({
     },
     {
       id: "moonflower",
+      drawn: "2026-08-09",
       image: { wiki: "Ipomoea_alba" },
       name: "Moonflower",
       sub: "Ipomoea alba",
@@ -752,6 +759,7 @@ ATLAS.register({
     },
     {
       id: "black-dahlia",
+      drawn: "2026-08-09",
       image: { wiki: "Dahlia" },
       name: "Black Dahlia",
       sub: "Dahlia — dark cultivars, e.g. 'Arabian Night'",
@@ -783,6 +791,7 @@ ATLAS.register({
     },
     {
       id: "sweet-pea",
+      drawn: "2026-08-09",
       image: { wiki: "Lathyrus_odoratus" },
       name: "Sweet Pea",
       sub: "Lathyrus odoratus",
@@ -809,6 +818,7 @@ ATLAS.register({
     },
     {
       id: "chamomile",
+      drawn: "2026-08-09",
       image: { wiki: "Matricaria_chamomilla" },
       name: "Chamomile",
       sub: "Matricaria chamomilla / Chamaemelum nobile",
@@ -835,6 +845,7 @@ ATLAS.register({
     },
     {
       id: "amaryllis",
+      drawn: "2026-08-09",
       image: { wiki: "Hippeastrum" },
       name: "Amaryllis",
       sub: "Hippeastrum (the florist's amaryllis)",

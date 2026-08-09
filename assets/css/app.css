@@ -385,6 +385,88 @@ select:hover { border-color: var(--line-strong); }
 
 .list { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
 
+/* ---------- card view (default) --------------------------------------- */
+
+.list[data-view="grid"] {
+  gap: 1.1rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.list[data-view="grid"] .row {
+  position: relative;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+}
+.list[data-view="grid"] .row:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.list[data-view="grid"] .row { transition: transform .18s cubic-bezier(.2,.8,.2,1), box-shadow .18s, border-color .15s; }
+
+.list[data-view="grid"] .row-thumb {
+  width: 100%; height: auto;
+  aspect-ratio: 4 / 3;
+  border: 0; border-radius: 0;
+  font-size: 2.2rem;
+}
+
+/* Checkbox and star float over the image, so the card is still one-click
+   tickable without opening the entry. */
+.list[data-view="grid"] .check,
+.list[data-view="grid"] .star {
+  position: absolute; top: .55rem; z-index: 2;
+  backdrop-filter: blur(6px);
+}
+.list[data-view="grid"] .check {
+  left: .55rem; margin: 0;
+  width: 1.5rem; height: 1.5rem;
+  background: color-mix(in oklab, var(--surface) 82%, transparent);
+  border-color: color-mix(in oklab, var(--ink) 35%, transparent);
+  box-shadow: var(--shadow-sm);
+}
+.list[data-view="grid"] .check:checked {
+  background-color: var(--done);
+  background-size: 1.05rem;
+  border-color: var(--done);
+}
+.list[data-view="grid"] .star {
+  right: .55rem; padding: .28rem;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--surface) 82%, transparent);
+  box-shadow: var(--shadow-sm);
+}
+@supports not (background: color-mix(in oklab, red, blue)) {
+  .list[data-view="grid"] .check,
+  .list[data-view="grid"] .star { background: var(--surface); }
+}
+
+.list[data-view="grid"] .row-body { padding: .85rem .95rem 1rem; }
+.list[data-view="grid"] .row-title { gap: .3rem; }
+.list[data-view="grid"] .row-name { font-size: 1.12rem; }
+.list[data-view="grid"] .row-sub { display: block; width: 100%; }
+.list[data-view="grid"] .row-meaning {
+  font-size: .885rem; margin-top: .35rem; -webkit-line-clamp: 3;
+}
+
+/* A finished card should read as finished at a glance across a whole grid. */
+.list[data-view="grid"] .row[data-done="true"] .row-thumb { filter: grayscale(1); opacity: .45; }
+.list[data-view="grid"] .row[data-done="true"]::after {
+  content: "Drawn";
+  position: absolute; top: .6rem; left: 50%; transform: translateX(-50%);
+  font-size: .66rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase;
+  color: #fff; background: var(--done);
+  padding: .12rem .5rem; border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 420px) {
+  .list[data-view="grid"] { grid-template-columns: 1fr; }
+}
+
 .row {
   display: flex; align-items: flex-start; gap: .8rem;
   background: var(--surface);

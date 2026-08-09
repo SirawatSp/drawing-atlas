@@ -13,6 +13,10 @@
   var A = window.ATLAS;
   var IMG = window.ATLAS_IMAGES;
   var main = document.getElementById("main");
+
+  // All data files have registered by now, so close the one-time seeding of
+  // entries marked `drawn` in the data.
+  A.finishSeeding();
   var searchInput = document.getElementById("search");
   var toastEl = document.getElementById("toast");
   var importInput = document.getElementById("import-file");
@@ -168,10 +172,15 @@
     var href = "#/c/" + entry.categoryId + "/" + entry.id;
     var hasNote = !!(s.note && s.note.trim());
 
+    // In grid view the image is the card's subject and carries the link, so it
+    // gets the real alt text; in list view it is a small decorative thumbnail
+    // beside a link that already names the entry.
+    var grid = opts.view !== "list";
     var thumb = entry.image && entry.image.wiki
-      ? '<a class="row-thumb" href="' + attr(href) + '" tabindex="-1" aria-hidden="true"' +
+      ? '<a class="row-thumb" href="' + attr(href) + '" tabindex="-1"' +
+        (grid ? "" : ' aria-hidden="true"') +
         ' data-img-wiki="' + attr(entry.image.wiki) + '"' +
-        ' data-img-alt="' + attr(entry.name) + '">' + placeholderHTML(entry, cat) + "</a>"
+        ' data-img-alt="' + attr(grid ? entry.name : "") + '">' + placeholderHTML(entry, cat) + "</a>"
       : "";
 
     return '<li class="row" data-key="' + attr(entry.key) + '" data-done="' + (s.done ? "true" : "false") + '">' +
@@ -193,13 +202,17 @@
   }
 
   function listHTML(entries, opts) {
+    opts = opts || {};
     if (!entries.length) {
       return '<div class="empty"><b>Nothing here</b>Try a different filter.</div>';
     }
-    return '<ul class="list">' + entries.map(function (e) { return rowHTML(e, opts); }).join("") + "</ul>";
+    var view = opts.view === "list" ? "list" : "grid";
+    return '<ul class="list" data-view="' + attr(view) + '">' +
+      entries.map(function (e) { return rowHTML(e, opts); }).join("") + "</ul>";
   }
 
   function groupedHTML(entries, groupKey, opts) {
+    opts = opts || {};
     if (!groupKey) return listHTML(entries, opts);
 
     var buckets = [];
@@ -305,6 +318,7 @@
 
     var filter = A.getPref("filter." + catId, "all");
     var sortKey = A.getPref("sort." + catId, "default");
+    var view = A.getPref("view", "grid");
     var groupKey = A.getPref("group." + catId, (cat.groupings && cat.groupings[0] && cat.groupings[0].key) || "");
 
     var entries = applySort(applyFilter(cat.entries || [], filter), sortKey);
@@ -352,19 +366,32 @@
           '<select id="group-by">' + groupOptions + "</select></div>" +
         '<div class="field"><label for="sort-by">Sort</label>' +
           '<select id="sort-by">' + sortOptions + "</select></div>" +
-        '<span class="toolbar-spacer count-note">' + entries.length + " shown</span>" +
+        '<div class="segmented toolbar-spacer" role="group" aria-label="Layout">' +
+          '<button type="button" data-view="grid" aria-pressed="' + (view === "grid" ? "true" : "false") + '">Cards</button>' +
+          '<button type="button" data-view="list" aria-pressed="' + (view === "list" ? "true" : "false") + '">Compact</button>' +
+        "</div>" +
+        '<span class="count-note">' + entries.length + " shown</span>" +
       "</div>" +
 
-      '<div id="checklist">' + groupedHTML(entries, groupKey, {}) + "</div>" +
+      '<div id="checklist">' + groupedHTML(entries, groupKey, { view: view }) + "</div>" +
 
       (sourceList ? '<section class="block"><h3>Sources for this category</h3><ul class="refs">' + sourceList + "</ul></section>" : "");
 
     var toolbar = document.getElementById("toolbar");
     toolbar.addEventListener("click", function (ev) {
-      var btn = ev.target.closest("button[data-filter]");
-      if (!btn) return;
-      A.setPref("filter." + catId, btn.getAttribute("data-filter"));
-      viewCategory(catId);
+      var filterBtn = ev.target.closest("button[data-filter]");
+      if (filterBtn) {
+        A.setPref("filter." + catId, filterBtn.getAttribute("data-filter"));
+        viewCategory(catId);
+        return;
+      }
+      var viewBtn = ev.target.closest("button[data-view]");
+      if (viewBtn) {
+        // Layout is a global preference, not per-category — switching category
+        // should not silently switch you back to a layout you rejected.
+        A.setPref("view", viewBtn.getAttribute("data-view"));
+        viewCategory(catId);
+      }
     });
     document.getElementById("group-by").addEventListener("change", function () {
       A.setPref("group." + catId, this.value);

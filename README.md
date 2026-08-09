@@ -83,8 +83,31 @@ than assumed.
 - **Palette starting point** — four hex swatches, as a departure point rather than a prescription
 - **References** — every source the summary drew on
 
+## Recording what you've drawn
+
+An entry can carry `drawn: "YYYY-MM-DD"`:
+
+```js
+{ id: "dogwood", drawn: "2026-08-09", name: "Dogwood", … }
+```
+
+Entries marked this way are ticked automatically the first time a browser loads
+the site, so the record travels with the repo instead of living in one browser's
+storage — a new phone, a new laptop or a cleared cache all show the right state
+with nothing to import.
+
+Seeding runs **once ever**, guarded by its own flag rather than by "is progress
+empty". That distinction matters: if it re-ran whenever progress looked empty,
+unticking a seeded entry and reloading would silently re-tick it and the
+checkbox would appear broken.
+
+Your own ticks, stars and notes still live in `localStorage` and are never
+overwritten by seeding. Export/import still works for moving those between
+browsers.
+
 ## Features
 
+- Two layouts: image-led **cards** (default) or a **compact** list, remembered across categories
 - Checklist with **studied**, **starred** and **per-entry notes**, saved in your browser
 - **Group** by sentiment, season, tradition, direction, realm, fate — each category
   defines its own useful axes
