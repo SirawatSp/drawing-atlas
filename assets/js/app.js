@@ -146,17 +146,6 @@
     });
   }
 
-  function ringHTML(pct, done, total) {
-    var r = 39, c = 2 * Math.PI * r;
-    var offset = c * (1 - Math.max(0, Math.min(100, pct)) / 100);
-    return '<div class="ring">' +
-      '<svg viewBox="0 0 92 92" role="img" aria-label="' + attr(done + " of " + total + " studied, " + pct + " percent") + '">' +
-      '<circle class="track" cx="46" cy="46" r="' + r + '"/>' +
-      '<circle class="fill" cx="46" cy="46" r="' + r + '" stroke-dasharray="' + c.toFixed(1) + '" stroke-dashoffset="' + offset.toFixed(1) + '"/>' +
-      "</svg>" +
-      '<div class="ring-label" aria-hidden="true"><b>' + pct + '<small style="font-size:.6em">%</small></b><span>studied</span></div>' +
-    "</div>";
-  }
 
   function barHTML(stats, label) {
     return '<div class="bar-row"><span>' + esc(label || "Studied") + '</span><b>' + stats.done + " / " + stats.total + "</b></div>" +
@@ -268,17 +257,21 @@
     var all = A.allEntries();
     var st = A.statsFor(all);
 
-    var cards = A.categories.map(function (cat) {
+    var cards = A.categories.map(function (cat, i) {
       var cs = A.statsFor(cat.entries || []);
-      return '<a class="cat-card" href="#/c/' + attr(cat.id) + '" style="--cat-accent:' + attr(cat.accent || "#8a5a3c") + '">' +
-        '<div class="cat-card-top">' +
-          '<span class="cat-glyph" aria-hidden="true">' + esc(cat.glyph || "◆") + "</span>" +
-          "<span><h2>" + esc(cat.name) + "</h2>" +
-          '<div class="cat-sub">' + esc(cat.subtitle || "") + "</div></span>" +
-        "</div>" +
-        "<p>" + esc(cat.blurb || "") + "</p>" +
-        barHTML(cs) +
-      "</a>";
+      return "<li>" +
+        '<a class="cat-card" href="#/c/' + attr(cat.id) + '" ' +
+           'style="--cat-accent:' + attr(cat.accent || "#8a5a3c") + ";--p:" + cs.pct + '%">' +
+          '<span class="plate" aria-hidden="true">' + roman(i + 1) + "</span>" +
+          '<span class="index-head">' +
+            "<h2>" + esc(cat.name) + "</h2>" +
+            '<span class="leader" aria-hidden="true"></span>' +
+            '<span class="tally"><b>' + cs.done + "</b>" +
+              '<span class="of"> of </span>' + cs.total + "</span>" +
+          "</span>" +
+          '<span class="cat-sub">' + esc(cat.subtitle || "") + "</span>" +
+        "</a>" +
+      "</li>";
     }).join("");
 
     var starred = all.filter(function (e) { return A.isStarred(e.key); });
@@ -292,8 +285,7 @@
         "in this browser.</p>" +
       "</div>" +
 
-      '<section class="overview" aria-label="Overall progress">' +
-        ringHTML(st.pct, st.done, st.total) +
+      '<section class="overview" aria-label="Overall progress" style="--p:' + st.pct + '%">' +
         '<div class="stats">' +
           "<div class=\"stat\"><b>" + st.total + "</b><span>subjects</span></div>" +
           "<div class=\"stat\"><b>" + st.done + "</b><span>studied</span></div>" +
@@ -307,20 +299,26 @@
         ? '<section class="block"><h3>Starred — draw these first</h3>' + listHTML(applySort(starred, "todo"), { showCategory: true }) + "</section>"
         : "") +
 
-      '<section class="block"><h3>Categories</h3><div class="cat-grid">' + cards + "</div></section>" +
+      '<section class="block"><h3>Categories</h3>' +
+        '<ol class="index-list">' + cards + "</ol>" +
+      "</section>" +
 
-      '<section class="block"><h3>Reading room</h3><div class="cat-grid">' +
-        '<a class="cat-card reading-card" href="#/read" style="--cat-accent:#5a6b8a">' +
-          '<div class="cat-card-top">' +
-            '<span class="cat-glyph" aria-hidden="true">✦</span>' +
-            "<span><h2>The library</h2>" +
-            '<div class="cat-sub" data-reading-sub>Public domain · free to read</div></span>' +
-          "</div>" +
-          "<p>Read with a Thai gloss one tap away. Tap any English word and its " +
-          "meaning appears without losing your place; every word you tap is kept as a study list.</p>" +
-          '<div class="book-start">Open the library →</div>' +
-        "</a>" +
-      "</div></section>";
+      '<section class="block"><h3>Reading room</h3>' +
+        '<ol class="index-list">' +
+          "<li>" +
+            '<a class="cat-card reading-card" href="#/read" style="--cat-accent:#5a6b8a">' +
+              '<span class="plate" aria-hidden="true">&#10086;</span>' +
+              '<span class="index-head">' +
+                "<h2>The library</h2>" +
+                '<span class="leader" aria-hidden="true"></span>' +
+                '<span class="tally" data-reading-tally>Free to read</span>' +
+              "</span>" +
+              '<span class="cat-sub" data-reading-sub>Public-domain books with a Thai gloss one tap ' +
+              "away — tap any English word and its meaning appears without losing your place.</span>" +
+            "</a>" +
+          "</li>" +
+        "</ol>" +
+      "</section>";
 
     fillReadingCard(main);
     document.title = "Drawing Atlas";
@@ -334,12 +332,20 @@
   function fillReadingCard(main) {
     if (!window.ATLAS_READER || !ATLAS_READER.summary) return;
     ATLAS_READER.summary().then(function (s) {
-      var el = main.querySelector("[data-reading-sub]");
+      var el = main.querySelector("[data-reading-tally]");
       if (!el || !s.books) return;
-      el.textContent = s.books + (s.books === 1 ? " book · " : " books · ") +
-        (s.words >= 1e6 ? (s.words / 1e6).toFixed(1) + "M words" : Math.round(s.words / 1000) + "k words") +
-        " · public domain";
+      el.innerHTML = "<b>" + s.books + "</b><span class=\"of\"> books</span>";
     }).catch(function () {});
+  }
+
+  /** Plate numbers, the way a field guide numbers its illustrations. */
+  function roman(n) {
+    var table = [[10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]];
+    var out = "";
+    for (var i = 0; i < table.length; i++) {
+      while (n >= table[i][0]) { out += table[i][1]; n -= table[i][0]; }
+    }
+    return out;
   }
 
   function viewCategory(catId) {
@@ -380,8 +386,7 @@
         '<p class="lede">' + esc(cat.blurb || "") + "</p>" +
       "</div>" +
 
-      '<section class="overview" aria-label="Category progress">' +
-        ringHTML(st.pct, st.done, st.total) +
+      '<section class="overview" aria-label="Category progress" style="--p:' + st.pct + '%">' +
         '<div class="stats">' +
           "<div class=\"stat\"><b>" + st.total + "</b><span>subjects</span></div>" +
           "<div class=\"stat\"><b>" + st.done + "</b><span>studied</span></div>" +
@@ -647,22 +652,16 @@
     refreshProgressWidgets();
   });
 
-  /* Updates rings, bars and counters in place so ticking a box does not
-     re-render the list and lose the user's scroll position. */
+  /* Updates the progress rules, bars and counters in place so ticking a box
+     does not re-render the list and lose the user's scroll position. */
   function refreshProgressWidgets() {
     var route = parseRoute();
     var scope = route.name === "category" ? (A.getCategory(route.catId) || {}).entries || [] : A.allEntries();
     var st = A.statsFor(scope);
 
-    var ring = main.querySelector(".ring .fill");
-    if (ring) {
-      var r = 39, c = 2 * Math.PI * r;
-      ring.setAttribute("stroke-dashoffset", (c * (1 - st.pct / 100)).toFixed(1));
-      var lbl = main.querySelector(".ring-label b");
-      if (lbl) lbl.innerHTML = st.pct + '<small style="font-size:.6em">%</small>';
-      var svg = main.querySelector(".ring svg");
-      if (svg) svg.setAttribute("aria-label", st.done + " of " + st.total + " studied, " + st.pct + " percent");
-    }
+    // The rule above the figures is the progress track; --p is its filled width.
+    var overview = main.querySelector(".overview");
+    if (overview) overview.style.setProperty("--p", st.pct + "%");
 
     var stats = main.querySelectorAll(".overview .stat");
     for (var i = 0; i < stats.length; i++) {
@@ -712,6 +711,9 @@
     var route = parseRoute();
     // The reading room owns its own routes and rendering.
     if (route.name === "read" && window.ATLAS_READER && ATLAS_READER.route(main, route.parts)) return;
+
+    // The index is set as a page; the grid views keep the wider measure.
+    main.classList.toggle("app--page", route.name === "dashboard");
 
     if (route.name === "dashboard") viewDashboard();
     else if (route.name === "category") viewCategory(route.catId);
