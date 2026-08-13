@@ -562,9 +562,32 @@ for (const book of targets) {
 
   if (existsSync(outFile) && !FORCE) {
     const existing = JSON.parse(await readFile(outFile, "utf8"));
+
+    // Editorial fields belong to the table above, not to the download. A book
+    // fetched before a field existed would otherwise keep the gap forever,
+    // because the whole point of this branch is not to refetch it — which is
+    // how the eight Holmes books ended up with no shelf and no reading level
+    // after both were introduced, and sat in an unnamed group at the foot of
+    // the library.
+    const meta = {
+      title: book.title,
+      author: book.author || DEFAULT_AUTHOR,
+      year: book.year,
+      kind: book.kind,
+      shelf: book.shelf || "Other",
+      level: book.level || "Moderate",
+      blurb: book.blurb,
+    };
+    const stale = Object.keys(meta).filter((k) => existing[k] !== meta[k]);
+    if (stale.length) {
+      Object.assign(existing, meta);
+      await writeFile(outFile, JSON.stringify(existing));
+    }
+
     manifest.push(summarise(existing));
     skipped++;
-    console.log(`skip   ${book.slug} (already present; --force to refetch)`);
+    console.log(`skip   ${book.slug} (already present; --force to refetch)` +
+      (stale.length ? ` — refreshed ${stale.join(", ")}` : ""));
     continue;
   }
 

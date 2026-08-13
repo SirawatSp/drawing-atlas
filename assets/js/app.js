@@ -313,16 +313,33 @@
         '<a class="cat-card reading-card" href="#/read" style="--cat-accent:#5a6b8a">' +
           '<div class="cat-card-top">' +
             '<span class="cat-glyph" aria-hidden="true">✦</span>' +
-            "<span><h2>Sherlock Holmes</h2>" +
-            '<div class="cat-sub">Arthur Conan Doyle · public domain</div></span>' +
+            "<span><h2>The library</h2>" +
+            '<div class="cat-sub" data-reading-sub>Public domain · free to read</div></span>' +
           "</div>" +
-          "<p>Read the canon with a Thai gloss one tap away. Tap any English word and its " +
+          "<p>Read with a Thai gloss one tap away. Tap any English word and its " +
           "meaning appears without losing your place; every word you tap is kept as a study list.</p>" +
           '<div class="book-start">Open the library →</div>' +
         "</a>" +
       "</div></section>";
 
+    fillReadingCard(main);
     document.title = "Drawing Atlas";
+  }
+
+  /**
+   * The card used to name a single author in the markup, which went stale the
+   * moment the library grew past him. Its subtitle now comes from the manifest,
+   * and falls back to the wording already in the DOM if that cannot be read.
+   */
+  function fillReadingCard(main) {
+    if (!window.ATLAS_READER || !ATLAS_READER.summary) return;
+    ATLAS_READER.summary().then(function (s) {
+      var el = main.querySelector("[data-reading-sub]");
+      if (!el || !s.books) return;
+      el.textContent = s.books + (s.books === 1 ? " book · " : " books · ") +
+        (s.words >= 1e6 ? (s.words / 1e6).toFixed(1) + "M words" : Math.round(s.words / 1000) + "k words") +
+        " · public domain";
+    }).catch(function () {});
   }
 
   function viewCategory(catId) {

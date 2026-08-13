@@ -87,6 +87,11 @@
 
   function getManifest() {
     if (manifest) return Promise.resolve(manifest);
+    // The standalone bundle is opened straight off disk, where a fetch is
+    // blocked by CORS before it is even attempted. The books are not inlined
+    // into that build either, so there is nothing to load: answer empty rather
+    // than spending a guaranteed failure and logging it to the console.
+    if (location.protocol === "file:") { manifest = []; return Promise.resolve(manifest); }
     return fetch("data/books/index.json", { headers: { accept: "application/json" } })
       .then(function (r) { if (!r.ok) throw new Error("no manifest"); return r.json(); })
       .then(function (j) { manifest = (j && j.books) || []; return manifest; })
@@ -658,6 +663,30 @@
   /* ---- route entry ------------------------------------------------------ */
 
   window.ATLAS_READER = {
+    /**
+     * What the library actually holds, for the dashboard card. Read from the
+     * manifest rather than written into the markup, so the card cannot go on
+     * naming one author after the shelves have grown past it.
+     */
+    summary: function () {
+      return getManifest().then(function (books) {
+        var shelves = [];
+        books.forEach(function (b) {
+          var name = b.shelf || "Other";
+          if (shelves.indexOf(name) === -1) shelves.push(name);
+        });
+        shelves.sort(function (a, b) {
+          var ai = SHELF_ORDER.indexOf(a), bi = SHELF_ORDER.indexOf(b);
+          return (ai < 0 ? 99 : ai) - (bi < 0 ? 99 : bi);
+        });
+        return {
+          books: books.length,
+          words: books.reduce(function (n, b) { return n + (b.words || 0); }, 0),
+          shelves: shelves
+        };
+      });
+    },
+
     /** @returns true if it handled the route */
     route: function (main, parts) {
       if (parts[0] !== "read") return false;
