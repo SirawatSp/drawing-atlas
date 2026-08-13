@@ -1007,3 +1007,19 @@ textarea.note::placeholder { color: var(--ink-3); }
 .pop-pos {
   color: var(--ink-3); font-size: .8rem; font-style: italic;
 }
+
+/* ---- library shelves --------------------------------------------------- */
+
+.shelf { margin-bottom: 2.4rem; }
+.shelf:last-child { margin-bottom: 0; }
+
+.level {
+  display: inline-block;
+  font-size: .66rem; letter-spacing: .06em; text-transform: uppercase;
+  font-weight: 600;
+  padding: .05rem .45rem; border-radius: 999px;
+  border: 1px solid currentColor;
+}
+.level[data-level="easier"]   { color: var(--done); }
+.level[data-level="moderate"] { color: var(--accent); }
+.level[data-level="harder"]   { color: var(--danger); }

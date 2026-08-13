@@ -132,8 +132,47 @@
       "</div>";
   }
 
+  /* Shelves in reading order rather than alphabetically: a learner should meet
+     the easy books first, and Holmes stays at the top because it is what the
+     library was built for. */
+  var SHELF_ORDER = [
+    "Sherlock Holmes", "Start here", "Fairy tales",
+    "Adventure", "Science fiction", "Gothic & mystery", "Classics", "Other"
+  ];
+
+  /** Levels become a data attribute, so the CSS colours them without inline style. */
+  function attrLevel(level) {
+    return String(level || "Moderate").toLowerCase().replace(/[^a-z]/g, "");
+  }
+
   function libraryHTML(books) {
     if (!books.length) return emptyLibraryHTML();
+
+    var shelves = [];
+    var index = Object.create(null);
+    books.forEach(function (b) {
+      var name = b.shelf || "Other";
+      if (!index[name]) { index[name] = { name: name, books: [] }; shelves.push(index[name]); }
+      index[name].books.push(b);
+    });
+    shelves.sort(function (a, b) {
+      var ai = SHELF_ORDER.indexOf(a.name), bi = SHELF_ORDER.indexOf(b.name);
+      return (ai < 0 ? 99 : ai) - (bi < 0 ? 99 : bi);
+    });
+
+    return shelves.map(function (shelf) {
+      var words = shelf.books.reduce(function (n, b) { return n + (b.words || 0); }, 0);
+      return '<section class="shelf">' +
+        '<div class="toc-head"><h3>' + esc(shelf.name) + "</h3>" +
+        '<span class="toc-summary">' + shelf.books.length +
+          (shelf.books.length === 1 ? " book · " : " books · ") +
+          Math.round(words / 1000) + "k words</span></div>" +
+        '<div class="book-grid">' + shelfCards(shelf.books) + "</div>" +
+      "</section>";
+    }).join("");
+  }
+
+  function shelfCards(books) {
     var positions = readPositions();
 
     var cards = books.map(function (b) {
@@ -145,8 +184,11 @@
           "<h2>" + esc(b.title) + "</h2>" +
           '<p class="book-sub">' + esc(b.author) + " · " + esc(b.year) + " · " + esc(b.kind) + "</p>" +
           "<p>" + esc(b.blurb || "") + "</p>" +
-          '<p class="book-stats">' + Number(b.chapters).toLocaleString() + " chapters · " +
-            Number(b.words).toLocaleString() + " words</p>" +
+          '<p class="book-stats">' +
+            '<span class="level" data-level="' + attrLevel(b.level) + '">' + esc(b.level || "Moderate") + "</span> " +
+            Number(b.chapters).toLocaleString() + " ch · " +
+            Number(b.words).toLocaleString() + " words · " +
+            minutesFor(b.words || 0) + " min</p>" +
           (pos
             ? '<div class="bar-row"><span>Reading</span><b>ch. ' + (pos.chapter + 1) + "</b></div>" +
               '<div class="bar"><i style="width:' + progress + '%"></i></div>'
