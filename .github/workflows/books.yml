@@ -39,10 +39,19 @@ jobs:
         run: node scripts/fetch-books.mjs ${{ inputs.force && '--force' || '' }}
 
       - name: Build Thai glossary
+        id: glossary
         # Never fail the run on a rate limit — the script stops cleanly and the
         # next scheduled run continues where it left off.
         continue-on-error: true
         run: node scripts/build-glossary.mjs --limit ${{ inputs.glossary_limit || '300' }}
+
+      # continue-on-error reports the step as successful even when the command
+      # exits non-zero, which once hid a real crash behind a green tick. Surface
+      # it: a rate limit is expected and harmless, a crash is not.
+      - name: Flag a masked glossary failure
+        if: steps.glossary.outcome == 'failure'
+        run: |
+          echo "::warning title=Glossary step failed::scripts/build-glossary.mjs exited non-zero. Rate limits are expected; a crash is not. Check its log above."
 
       - name: Validate data still passes
         run: node scripts/check-data.mjs

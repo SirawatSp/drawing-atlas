@@ -51,6 +51,8 @@ for (const f of files) {
   const book = JSON.parse(await readFile(path.join(booksDir, f), "utf8"));
   for (const ch of book.chapters ?? []) {
     for (const p of ch.paragraphs ?? []) {
+      // A chapter's blocks are paragraphs (strings) or illustrations (objects).
+      if (typeof p !== "string") continue;
       for (const raw of p.split(/\s+/)) {
         const w = raw
           .replace(/[‘’]/g, "'")
