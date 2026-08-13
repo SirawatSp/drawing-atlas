@@ -307,7 +307,20 @@
         ? '<section class="block"><h3>Starred — draw these first</h3>' + listHTML(applySort(starred, "todo"), { showCategory: true }) + "</section>"
         : "") +
 
-      '<section class="block"><h3>Categories</h3><div class="cat-grid">' + cards + "</div></section>";
+      '<section class="block"><h3>Categories</h3><div class="cat-grid">' + cards + "</div></section>" +
+
+      '<section class="block"><h3>Reading room</h3><div class="cat-grid">' +
+        '<a class="cat-card reading-card" href="#/read" style="--cat-accent:#5a6b8a">' +
+          '<div class="cat-card-top">' +
+            '<span class="cat-glyph" aria-hidden="true">✦</span>' +
+            "<span><h2>Sherlock Holmes</h2>" +
+            '<div class="cat-sub">Arthur Conan Doyle · public domain</div></span>' +
+          "</div>" +
+          "<p>Read the canon with a Thai gloss one tap away. Tap any English word and its " +
+          "meaning appears without losing your place; every word you tap is kept as a study list.</p>" +
+          '<div class="book-start">Open the library →</div>' +
+        "</a>" +
+      "</div></section>";
 
     document.title = "Drawing Atlas";
   }
@@ -667,6 +680,7 @@
     if (qIndex > -1) { query = hash.slice(qIndex + 1); hash = hash.slice(0, qIndex); }
     var parts = hash.split("/").filter(Boolean).map(decodeURIComponent);
 
+    if (parts[0] === "read") return { name: "read", parts: parts };
     if (parts[0] === "c" && parts[1] && parts[2]) return { name: "entry", catId: parts[1], entryId: parts[2] };
     if (parts[0] === "c" && parts[1]) return { name: "category", catId: parts[1] };
     if (parts[0] === "starred") return { name: "starred" };
@@ -679,6 +693,9 @@
 
   function render() {
     var route = parseRoute();
+    // The reading room owns its own routes and rendering.
+    if (route.name === "read" && window.ATLAS_READER && ATLAS_READER.route(main, route.parts)) return;
+
     if (route.name === "dashboard") viewDashboard();
     else if (route.name === "category") viewCategory(route.catId);
     else if (route.name === "entry") viewEntry(route.catId, route.entryId);

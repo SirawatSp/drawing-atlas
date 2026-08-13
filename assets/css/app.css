@@ -756,3 +756,246 @@ textarea.note::placeholder { color: var(--ink-3); }
 
 /* wide content never scrolls the page sideways */
 .scroll-x { overflow-x: auto; }
+
+/* ==========================================================================
+   Reading room
+   ========================================================================== */
+
+.book-grid {
+  display: grid; gap: 1.35rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+
+.book-card {
+  display: flex; gap: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 1.1rem;
+  text-decoration: none; color: inherit;
+  box-shadow: var(--shadow-sm);
+  transition: transform .18s cubic-bezier(.2,.8,.2,1), box-shadow .18s, border-color .18s;
+}
+.book-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
+
+/* A spine, so a library looks like a shelf rather than a list of links. */
+.book-spine {
+  flex: 0 0 auto; width: 2.6rem; border-radius: 4px;
+  background: linear-gradient(105deg, #7a2a2a, #4a1f22 55%, #6b2626);
+  box-shadow: inset -3px 0 6px rgb(0 0 0 / .35), inset 2px 0 0 rgb(255 255 255 / .12);
+  display: grid; place-items: center; overflow: hidden;
+}
+.book-spine span {
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-family: var(--serif); font-size: .72rem; letter-spacing: .04em;
+  color: #e8d9b8; padding: .6rem .1rem; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; max-height: 100%;
+}
+
+.book-meta { min-width: 0; flex: 1 1 auto; display: flex; flex-direction: column; }
+.book-meta h2 { font-size: 1.18rem; margin-bottom: .15rem; }
+.book-sub { font-size: .76rem; color: var(--ink-3); margin: 0 0 .5rem; }
+.book-meta p { font-size: .88rem; color: var(--ink-2); margin: 0 0 .5rem; }
+.book-stats { font-size: .74rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.book-start { margin-top: auto; font-size: .85rem; color: var(--accent); font-weight: 600; }
+.book-card .bar-row { margin-top: auto; }
+
+/* ---- contents ---------------------------------------------------------- */
+
+.toc { list-style: none; margin: 0; padding: 0; display: grid; gap: .3rem; }
+.toc-item a {
+  display: flex; align-items: baseline; gap: .8rem;
+  padding: .55rem .7rem; border-radius: var(--r-sm);
+  text-decoration: none; color: inherit;
+  border: 1px solid transparent;
+}
+.toc-item a:hover { background: var(--surface-2); border-color: var(--line); }
+.toc-item.is-current a { background: var(--accent-soft); border-color: var(--accent); }
+.toc-n {
+  flex: 0 0 1.8rem; font-variant-numeric: tabular-nums;
+  font-size: .78rem; color: var(--ink-3); text-align: right;
+}
+.toc-t { flex: 1 1 auto; font-family: var(--serif); font-size: 1rem; }
+.toc-w { flex: 0 0 auto; font-size: .72rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+
+/* ---- the reader -------------------------------------------------------- */
+
+.reader { position: relative; }
+
+.reader-bar {
+  display: flex; align-items: center; gap: 1rem;
+  padding-bottom: .7rem; margin-bottom: .9rem;
+  border-bottom: 1px solid var(--line);
+}
+.reader-bar .backlink { margin: 0; flex: 0 0 auto; }
+.reader-title {
+  flex: 1 1 auto; min-width: 0;
+  font-size: .8rem; color: var(--ink-3); text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.reader-tools { display: flex; gap: .4rem; flex: 0 0 auto; }
+.reader-tools .icon-btn { width: auto; padding: 0 .6rem; font-size: .8rem; font-weight: 600; }
+
+/* The page. Height is capped so a page is a page, not a scroll. */
+.page-viewport {
+  position: relative;
+  height: min(66vh, 620px);
+  overflow: hidden;
+  cursor: text;
+}
+.page-track {
+  height: 100%;
+  column-gap: 2.5rem;
+  column-fill: auto;
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.75;
+  color: var(--ink);
+  transition: transform .28s cubic-bezier(.3,.8,.3,1);
+  text-align: justify;
+  hyphens: auto;
+}
+@media (prefers-reduced-motion: reduce) { .page-track { transition: none; } }
+
+.page-track p { margin: 0 0 .95em; text-indent: 1.4em; }
+.page-track p:first-of-type { text-indent: 0; }
+.chapter-head {
+  font-size: 1.15rem; margin: 0 0 1em;
+  text-align: left; text-indent: 0;
+  color: var(--ink-2);
+  border-bottom: 1px solid var(--line); padding-bottom: .4em;
+}
+
+.reader-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding-top: .9rem; margin-top: .3rem;
+  border-top: 1px solid var(--line);
+}
+.reader-foot .btn:disabled { opacity: .38; cursor: default; }
+.page-count { font-size: .8rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+
+.chapter-nav {
+  display: flex; justify-content: space-between; gap: 1rem;
+  margin-top: 1.2rem; font-size: .88rem;
+}
+.chapter-nav a { color: var(--ink-2); text-decoration: none; }
+.chapter-nav a:hover { color: var(--accent); }
+
+/* ---- tapped word ------------------------------------------------------- */
+
+.word-mark {
+  position: absolute; pointer-events: none; z-index: 1;
+  background: color-mix(in oklab, var(--accent) 26%, transparent);
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent) 26%, transparent);
+}
+@supports not (background: color-mix(in oklab, red, blue)) {
+  .word-mark { background: rgb(200 160 120 / .3); }
+}
+
+.word-pop {
+  position: fixed; z-index: 60;
+  width: min(21rem, calc(100vw - 1.6rem));
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-lg);
+  padding: .85rem 1rem 1rem;
+}
+.pop-close {
+  position: absolute; top: .3rem; right: .45rem;
+  background: none; border: 0; cursor: pointer;
+  font-size: 1.2rem; line-height: 1; color: var(--ink-3);
+  padding: .2rem .3rem;
+}
+.pop-close:hover { color: var(--ink); }
+.pop-word {
+  font-family: var(--serif); font-size: 1.1rem; font-weight: 600;
+  padding-right: 1.2rem;
+}
+.pop-thai {
+  font-size: 1.45rem; line-height: 1.5; margin-top: .3rem;
+  color: var(--accent);
+  /* Thai needs a font with real Thai coverage before the serif stack. */
+  font-family: "Noto Sans Thai", "Leelawadee UI", "Thonburi", "Sarabun", var(--sans);
+}
+.pop-base, .pop-src {
+  font-size: .72rem; color: var(--ink-3); margin-top: .25rem;
+}
+.pop-src { letter-spacing: .04em; text-transform: uppercase; }
+.pop-loading { font-size: .95rem; color: var(--ink-3); margin-top: .4rem; }
+.pop-loading span { font-size: .75rem; }
+.pop-fail { font-size: .88rem; color: var(--ink-2); margin-top: .4rem; }
+.pop-link { display: inline-block; margin-top: .4rem; font-size: .82rem; color: var(--accent); }
+.pop-context {
+  margin-top: .6rem; padding-top: .55rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--serif); font-size: .82rem; line-height: 1.5;
+  color: var(--ink-3); font-style: italic;
+}
+
+/* ---- study list -------------------------------------------------------- */
+
+.word-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .4rem; }
+.word-row {
+  display: flex; align-items: baseline; gap: 1rem;
+  padding: .6rem .85rem;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+}
+.word-row b { font-family: var(--serif); font-size: 1rem; flex: 0 0 34%; }
+.word-row span {
+  color: var(--accent); font-size: 1.05rem;
+  font-family: "Noto Sans Thai", "Leelawadee UI", "Thonburi", "Sarabun", var(--sans);
+}
+
+@media (max-width: 620px) {
+  .page-viewport { height: min(70vh, 560px); }
+  .page-track { font-size: 18px; text-align: left; }
+  .book-grid { grid-template-columns: 1fr; }
+  .word-row b { flex: 0 0 40%; }
+}
+
+/* ---- index / episode list --------------------------------------------- */
+
+.toc-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap; margin-bottom: .5rem;
+}
+.toc-head h3 { margin: 0; }
+.toc-summary { font-size: .76rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+
+.toc-item a { align-items: center; }
+.toc-body { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: .1rem; }
+.toc-facts { font-size: .72rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+
+.toc-status {
+  flex: 0 0 4.6rem; text-align: right;
+  font-size: .66rem; letter-spacing: .08em; text-transform: uppercase;
+}
+.toc-item[data-status="read"] .toc-status { color: var(--done); font-weight: 600; }
+.toc-item[data-status="reading"] .toc-status { color: var(--accent); font-weight: 600; }
+.toc-item[data-status="read"] .toc-n { color: var(--done); }
+.toc-item[data-status="read"] .toc-t { color: var(--ink-3); }
+
+/* ---- illustrations ----------------------------------------------------- */
+
+.plate {
+  margin: 0 0 1.1em; text-indent: 0;
+  break-inside: avoid;              /* never split a plate across two pages */
+  text-align: center;
+}
+.plate img {
+  display: block; margin: 0 auto;
+  max-width: 100%;
+  /* Capped so one illustration cannot swallow a whole page of the reader. */
+  max-height: 58%;
+  object-fit: contain;
+  border-radius: var(--r-sm);
+  background: var(--bg-sunk);
+}
+.plate figcaption {
+  margin-top: .45em;
+  font-family: var(--sans); font-size: .7rem; line-height: 1.4;
+  color: var(--ink-3); font-style: normal;
+}
