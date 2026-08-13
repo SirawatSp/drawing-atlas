@@ -6,7 +6,9 @@
  *   2. bundled glossary     — data/books/glossary-th.json, pre-translated in CI
  *                             for the most frequent words, so common taps are
  *                             instant and work offline
- *   3. live API             — MyMemory, which is free, keyless and CORS-enabled
+ *   3. provider chain       — Google's public endpoint, then MyMemory, then an
+ *                             English definition as a last resort, so a rare or
+ *                             technical word still teaches you something
  *
  * NOTE ON TRUST: every Thai gloss comes from a translation service, never from
  * hand-written guesses, and the popover always says which layer answered so a
@@ -22,8 +24,12 @@
   var MISS_TTL = 2 * 60 * 60 * 1000;
   var TIMEOUT = 9000;
 
-  var API = "https://api.mymemory.translated.net/get";
-  var ALLOWED_HOSTS = /^api\.mymemory\.translated\.net$/;
+  // Thai block U+0E00–U+0E7F, written as escapes rather than literal Thai
+  // characters so the test cannot be broken by a re-encoding anywhere between
+  // here and the browser.
+  var THAI_RE = /[\u0E00-\u0E7F]/;
+
+  var ALLOWED_HOSTS = /^(api\.mymemory\.translated\.net|translate\.googleapis\.com|api\.dictionaryapi\.dev)$/;
 
   var cache = load();
   var glossary = null;      // lazily fetched bundled dictionary
@@ -126,34 +132,104 @@
     }
   }
 
-  function fetchThai(word) {
-    var url = safeUrl(API + "?q=" + encodeURIComponent(word) + "&langpair=en%7Cth&de=drawing-atlas");
-    if (!url) return Promise.reject(new Error("bad url"));
-
+  function getJSON(url) {
+    var safe = safeUrl(url);
+    if (!safe) return Promise.reject(new Error("bad url"));
     var controller = new AbortController();
     var timer = setTimeout(function () { controller.abort(); }, TIMEOUT);
-
-    return fetch(url, { signal: controller.signal, headers: { accept: "application/json" } })
+    return fetch(safe, { signal: controller.signal, headers: { accept: "application/json" } })
       .then(function (res) {
         clearTimeout(timer);
         if (!res.ok) throw new Error("HTTP " + res.status);
         return res.json();
       })
+      .catch(function (err) { clearTimeout(timer); throw err; });
+  }
+
+  /**
+   * Providers are tried in order. One service refusing a word is normal —
+   * rare and technical words ("subclavian") are exactly where a single
+   * translation memory returns nothing — so a chain matters more here than
+   * picking the single best service.
+   */
+  var PROVIDERS = [
+    {
+      name: "google",
+      thai: true,
+      run: function (word) {
+        return getJSON(
+          "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=th&dt=t&q=" +
+          encodeURIComponent(word)
+        ).then(function (json) {
+          var text = json && json[0] && json[0][0] && json[0][0][0];
+          return typeof text === "string" ? text.trim() : "";
+        });
+      }
+    },
+    {
+      name: "mymemory",
+      thai: true,
+      run: function (word) {
+        return getJSON(
+          "https://api.mymemory.translated.net/get?q=" + encodeURIComponent(word) +
+          "&langpair=en%7Cth&de=drawing-atlas"
+        ).then(function (json) {
+          var d = json && json.responseData;
+          var text = d && typeof d.translatedText === "string" ? d.translatedText.trim() : "";
+          // It puts its own error prose in the translation field when throttled.
+          if (/MYMEMORY WARNING|QUERY LENGTH LIMIT|USAGE LIMIT|INVALID/i.test(text)) return "";
+          return text;
+        });
+      }
+    }
+  ];
+
+  /** Last resort: an English definition still teaches an unfamiliar word. */
+  function fetchEnglish(word) {
+    return getJSON("https://api.dictionaryapi.dev/api/v2/entries/en/" + encodeURIComponent(word))
       .then(function (json) {
-        var d = json && json.responseData;
-        var text = d && typeof d.translatedText === "string" ? d.translatedText.trim() : "";
-        // The API echoes the input back when it has nothing, and sometimes
-        // returns its own error prose in the translation field.
-        if (!text) throw new Error("empty");
-        if (text.toLowerCase() === word.toLowerCase()) throw new Error("echo");
-        if (/MYMEMORY WARNING|QUERY LENGTH LIMIT|INVALID/i.test(text)) throw new Error("quota");
-        if (!/[฀-๿]/.test(text)) throw new Error("not thai");
-        return text;
+        var entry = Array.isArray(json) ? json[0] : null;
+        var meaning = entry && entry.meanings && entry.meanings[0];
+        var def = meaning && meaning.definitions && meaning.definitions[0];
+        if (!def || !def.definition) return null;
+        return { definition: String(def.definition), partOfSpeech: meaning.partOfSpeech || "" };
       })
-      .catch(function (err) {
-        clearTimeout(timer);
-        throw err;
+      .catch(function () { return null; });
+  }
+
+  /** Walks the provider chain, then the stemmed forms, then English. */
+  function fetchRemote(word) {
+    var forms = candidates(word);
+
+    function tryProvider(pi, fi) {
+      if (pi >= PROVIDERS.length) return Promise.resolve(null);
+      var provider = PROVIDERS[pi];
+      var form = forms[fi];
+
+      // Only the exact form is worth asking a second provider for; stemmed
+      // forms are a fallback within the first provider that answered at all.
+      if (form == null) return tryProvider(pi + 1, 0);
+
+      return provider.run(form)
+        .then(function (text) {
+          if (!text) throw new Error("empty");
+          if (text.toLowerCase() === form.toLowerCase()) throw new Error("echo");
+          if (provider.thai && !THAI_RE.test(text)) throw new Error("not thai");
+          return { thai: text, base: form, source: provider.name };
+        })
+        .catch(function () {
+          return fi + 1 < forms.length
+            ? tryProvider(pi, fi + 1)
+            : tryProvider(pi + 1, 0);
+        });
+    }
+
+    return tryProvider(0, 0).then(function (hit) {
+      if (hit) return hit;
+      return fetchEnglish(word).then(function (en) {
+        return en ? { thai: null, english: en, base: word, source: "dictionary" } : null;
       });
+    });
   }
 
   /* ---- public API ------------------------------------------------------- */
@@ -168,7 +244,10 @@
 
     var rec = cache[word];
     if (fresh(rec)) {
-      return Promise.resolve(rec.miss ? null : { word: word, base: rec.base || word, thai: rec.thai, source: "cache" });
+      return Promise.resolve(rec.miss ? null : {
+        word: word, base: rec.base || word, thai: rec.thai || null,
+        english: rec.english || null, source: "cache"
+      });
     }
     if (inflight[word]) return inflight[word];
 
@@ -180,12 +259,19 @@
             return { word: word, base: forms[i], thai: g[forms[i]], source: "glossary" };
           }
         }
-        return fetchThai(word).then(function (thai) {
-          return { word: word, base: word, thai: thai, source: "api" };
+        return fetchRemote(word).then(function (hit) {
+          if (!hit) throw new Error("no result");
+          return {
+            word: word, base: hit.base, thai: hit.thai || null,
+            english: hit.english || null, source: hit.source
+          };
         });
       })
       .then(function (result) {
-        cache[word] = { at: Date.now(), thai: result.thai, base: result.base };
+        cache[word] = {
+          at: Date.now(), thai: result.thai || undefined,
+          english: result.english || undefined, base: result.base
+        };
         save();
         delete inflight[word];
         return result;

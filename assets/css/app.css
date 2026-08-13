@@ -999,3 +999,11 @@ textarea.note::placeholder { color: var(--ink-3); }
   font-family: var(--sans); font-size: .7rem; line-height: 1.4;
   color: var(--ink-3); font-style: normal;
 }
+
+.pop-english {
+  font-size: .92rem; line-height: 1.55; margin-top: .35rem;
+  color: var(--ink);
+}
+.pop-pos {
+  color: var(--ink-3); font-size: .8rem; font-style: italic;
+}

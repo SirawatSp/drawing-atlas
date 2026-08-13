@@ -113,7 +113,7 @@ async function translate(word) {
     if (!text) return { error: "empty" };
     if (/MYMEMORY WARNING|QUERY LENGTH LIMIT|USAGE LIMIT/i.test(text)) return { rateLimited: true };
     if (text.toLowerCase() === word.toLowerCase()) return { error: "echo" };
-    if (!/[฀-๿]/.test(text)) return { error: "not thai" };
+    if (!/[\u0E00-\u0E7F]/.test(text)) return { error: "not thai" };
     return { thai: text };
   } catch (err) {
     clearTimeout(timer);

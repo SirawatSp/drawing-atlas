@@ -495,22 +495,41 @@
 
     TH.lookup(hit.word).then(function (result) {
       if (pop.hidden) return;
+      var SOURCE_LABEL = {
+        glossary: "bundled glossary",
+        cache: "saved earlier",
+        google: "machine translation",
+        mymemory: "translation memory",
+        dictionary: "English dictionary — no Thai found"
+      };
+
       var body;
-      if (result) {
+      if (result && result.thai) {
         body =
           '<div class="pop-thai">' + esc(result.thai) + "</div>" +
           (result.base !== result.word
             ? '<div class="pop-base">from <b>' + esc(result.base) + "</b></div>"
             : "") +
-          '<div class="pop-src">' +
-            (result.source === "glossary" ? "bundled glossary"
-              : result.source === "cache" ? "saved earlier"
-              : "machine translation") +
+          '<div class="pop-src">' + esc(SOURCE_LABEL[result.source] || result.source) + "</div>" +
+          (context ? '<div class="pop-context">' + esc(context) + "</div>" : "");
+      } else if (result && result.english) {
+        // No Thai for this word, but an English definition is still worth having
+        // — rare and technical words are exactly where translation fails.
+        body =
+          '<div class="pop-english">' +
+            (result.english.partOfSpeech
+              ? '<i class="pop-pos">' + esc(result.english.partOfSpeech) + "</i> "
+              : "") +
+            esc(result.english.definition) +
           "</div>" +
+          '<div class="pop-src">' + esc(SOURCE_LABEL.dictionary) + "</div>" +
+          '<a class="pop-link" href="https://dict.longdo.com/search/' + encodeURIComponent(hit.word) +
+            '" target="_blank" rel="noopener noreferrer">Thai on Longdo →</a>' +
           (context ? '<div class="pop-context">' + esc(context) + "</div>" : "");
       } else {
         body =
-          '<div class="pop-fail">No translation available offline.</div>' +
+          '<div class="pop-fail">Couldn’t find this word. It may be archaic, a proper name, ' +
+          "or the translation services may be unreachable.</div>" +
           '<a class="pop-link" href="https://dict.longdo.com/search/' + encodeURIComponent(hit.word) +
             '" target="_blank" rel="noopener noreferrer">Look up on Longdo →</a>' +
           (context ? '<div class="pop-context">' + esc(context) + "</div>" : "");
