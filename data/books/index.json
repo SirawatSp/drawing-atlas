@@ -1,3 +1,680 @@
 {
-  "books": []
+  "books": [
+    {
+      "slug": "grimms-fairy-tales",
+      "title": "Grimms' Fairy Tales",
+      "author": "Jacob Grimm and Wilhelm Grimm",
+      "year": 1812,
+      "kind": "Short stories",
+      "shelf": "Fairy tales",
+      "level": "Easier",
+      "blurb": "Sixty-odd tales, most only a few pages. The originals are darker than the retellings.",
+      "chapters": 59,
+      "images": 0,
+      "words": 96385,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/2591",
+        "textUrl": "https://www.gutenberg.org/cache/epub/2591/pg2591-images.html",
+        "gutenbergId": 2591,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "pride-and-prejudice",
+      "title": "Pride and Prejudice",
+      "author": "Jane Austen",
+      "year": 1813,
+      "kind": "Novel",
+      "shelf": "Classics",
+      "level": "Harder",
+      "blurb": "Almost entirely conversation, but the sentences are long and the irony is quiet.",
+      "chapters": 62,
+      "images": 80,
+      "words": 126898,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/1342",
+        "textUrl": "https://www.gutenberg.org/cache/epub/1342/pg1342-images.html",
+        "gutenbergId": 1342,
+        "rights": "Public domain in the United States (published before 1929).",
+        "illustrations": "Original magazine illustrations from the Gutenberg HTML edition; public domain."
+      }
+    },
+    {
+      "slug": "frankenstein",
+      "title": "Frankenstein",
+      "author": "Mary Wollstonecraft Shelley",
+      "year": 1818,
+      "kind": "Novel",
+      "shelf": "Gothic & mystery",
+      "level": "Harder",
+      "blurb": "Long sentences and high Romantic diction, but the argument at its centre is worth the work.",
+      "chapters": 28,
+      "images": 0,
+      "words": 74940,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/84",
+        "textUrl": "https://www.gutenberg.org/cache/epub/84/pg84-images.html",
+        "gutenbergId": 84,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "andersens-fairy-tales",
+      "title": "Andersen's Fairy Tales",
+      "author": "Hans Christian Andersen",
+      "year": 1837,
+      "kind": "Short stories",
+      "shelf": "Fairy tales",
+      "level": "Easier",
+      "blurb": "The Little Mermaid, The Snow Queen, The Ugly Duckling — sadder and stranger than expected.",
+      "chapters": 19,
+      "images": 0,
+      "words": 54787,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/1597",
+        "textUrl": "https://www.gutenberg.org/cache/epub/1597/pg1597-images.html",
+        "gutenbergId": 1597,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "a-christmas-carol",
+      "title": "A Christmas Carol",
+      "author": "Charles Dickens",
+      "year": 1843,
+      "kind": "Novella",
+      "shelf": "Classics",
+      "level": "Moderate",
+      "blurb": "Five short staves. The best entry point to Dickens by a wide margin.",
+      "chapters": 7,
+      "images": 8,
+      "words": 28498,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/46",
+        "textUrl": "https://www.gutenberg.org/cache/epub/46/pg46-images.html",
+        "gutenbergId": 46,
+        "rights": "Public domain in the United States (published before 1929).",
+        "illustrations": "Original magazine illustrations from the Gutenberg HTML edition; public domain."
+      }
+    },
+    {
+      "slug": "alices-adventures-in-wonderland",
+      "title": "Alice's Adventures in Wonderland",
+      "author": "Lewis Carroll",
+      "year": 1865,
+      "kind": "Novel",
+      "shelf": "Start here",
+      "level": "Easier",
+      "blurb": "Short chapters, simple sentences, and Tenniel's illustrations throughout.",
+      "chapters": 12,
+      "images": 0,
+      "words": 26371,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/11",
+        "textUrl": "https://www.gutenberg.org/cache/epub/11/pg11-images.html",
+        "gutenbergId": 11,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "aesops-fables",
+      "title": "Aesop's Fables",
+      "author": "Aesop",
+      "year": 1867,
+      "kind": "Short stories",
+      "shelf": "Start here",
+      "level": "Easier",
+      "blurb": "Hundreds of fables a paragraph long, each ending in a moral. The easiest possible way in.",
+      "chapters": 3,
+      "images": 0,
+      "words": 6171,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/21",
+        "textUrl": "https://www.gutenberg.org/cache/epub/21/pg21-images.html",
+        "gutenbergId": 21,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "twenty-thousand-leagues-under-the-sea",
+      "title": "Twenty Thousand Leagues Under the Sea",
+      "author": "Jules Verne",
+      "year": 1870,
+      "kind": "Novel",
+      "shelf": "Adventure",
+      "level": "Harder",
+      "blurb": "Captain Nemo and the Nautilus. Heavy on marine vocabulary — good for a reader who likes lists.",
+      "chapters": 46,
+      "images": 12,
+      "words": 104318,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/164",
+        "textUrl": "https://www.gutenberg.org/cache/epub/164/pg164-images.html",
+        "gutenbergId": 164,
+        "rights": "Public domain in the United States (published before 1929).",
+        "illustrations": "Original magazine illustrations from the Gutenberg HTML edition; public domain."
+      }
+    },
+    {
+      "slug": "through-the-looking-glass",
+      "title": "Through the Looking-Glass",
+      "author": "Lewis Carroll",
+      "year": 1871,
+      "kind": "Novel",
+      "shelf": "Start here",
+      "level": "Easier",
+      "blurb": "The sequel, built on a chess game. Contains Jabberwocky.",
+      "chapters": 11,
+      "images": 1,
+      "words": 29678,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/12",
+        "textUrl": "https://www.gutenberg.org/cache/epub/12/pg12-images.html",
+        "gutenbergId": 12,
+        "rights": "Public domain in the United States (published before 1929).",
+        "illustrations": "Original magazine illustrations from the Gutenberg HTML edition; public domain."
+      }
+    },
+    {
+      "slug": "around-the-world-in-eighty-days",
+      "title": "Around the World in Eighty Days",
+      "author": "Jules Verne",
+      "year": 1873,
+      "kind": "Novel",
+      "shelf": "Adventure",
+      "level": "Moderate",
+      "blurb": "A wager, a timetable, and a very calm Englishman.",
+      "chapters": 37,
+      "images": 0,
+      "words": 62224,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/103",
+        "textUrl": "https://www.gutenberg.org/cache/epub/103/pg103-images.html",
+        "gutenbergId": 103,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "the-adventures-of-tom-sawyer",
+      "title": "The Adventures of Tom Sawyer",
+      "author": "Mark Twain",
+      "year": 1876,
+      "kind": "Novel",
+      "shelf": "Adventure",
+      "level": "Moderate",
+      "blurb": "Small-town Missouri boyhood, with a murder in the middle of it.",
+      "chapters": 36,
+      "images": 80,
+      "words": 70012,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/74",
+        "textUrl": "https://www.gutenberg.org/cache/epub/74/pg74-images.html",
+        "gutenbergId": 74,
+        "rights": "Public domain in the United States (published before 1929).",
+        "illustrations": "Original magazine illustrations from the Gutenberg HTML edition; public domain."
+      }
+    },
+    {
+      "slug": "treasure-island",
+      "title": "Treasure Island",
+      "author": "Robert Louis Stevenson",
+      "year": 1883,
+      "kind": "Novel",
+      "shelf": "Adventure",
+      "level": "Moderate",
+      "blurb": "The book that invented most of what we picture when we picture pirates.",
+      "chapters": 35,
+      "images": 80,
+      "words": 67839,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/120",
+        "textUrl": "https://www.gutenberg.org/cache/epub/120/pg120-images.html",
+        "gutenbergId": 120,
+        "rights": "Public domain in the United States (published before 1929).",
+        "illustrations": "Original magazine illustrations from the Gutenberg HTML edition; public domain."
+      }
+    },
+    {
+      "slug": "the-strange-case-of-dr-jekyll-and-mr-hyde",
+      "title": "The Strange Case of Dr. Jekyll and Mr. Hyde",
+      "author": "Robert Louis Stevenson",
+      "year": 1886,
+      "kind": "Novella",
+      "shelf": "Gothic & mystery",
+      "level": "Moderate",
+      "blurb": "Under 30,000 words. A whole novel's worth of dread in an evening.",
+      "chapters": 10,
+      "images": 0,
+      "words": 25536,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/43",
+        "textUrl": "https://www.gutenberg.org/cache/epub/43/pg43-images.html",
+        "gutenbergId": 43,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "a-study-in-scarlet",
+      "title": "A Study in Scarlet",
+      "author": "Arthur Conan Doyle",
+      "year": 1887,
+      "kind": "Novel",
+      "blurb": "The first Holmes story, and the one where Watson meets him over a bench of chemicals.",
+      "chapters": 14,
+      "images": 0,
+      "words": 43192,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/244",
+        "textUrl": "https://www.gutenberg.org/cache/epub/244/pg244-images.html",
+        "gutenbergId": 244,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "the-sign-of-the-four",
+      "title": "The Sign of the Four",
+      "author": "Arthur Conan Doyle",
+      "year": 1890,
+      "kind": "Novel",
+      "blurb": "A stolen treasure, a locked room, and a boat chase down the Thames.",
+      "chapters": 12,
+      "images": 0,
+      "words": 42950,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/2097",
+        "textUrl": "https://www.gutenberg.org/cache/epub/2097/pg2097-images.html",
+        "gutenbergId": 2097,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "the-picture-of-dorian-gray",
+      "title": "The Picture of Dorian Gray",
+      "author": "Oscar Wilde",
+      "year": 1890,
+      "kind": "Novel",
+      "shelf": "Gothic & mystery",
+      "level": "Harder",
+      "blurb": "A painting ages while its subject does not. Wilde's dialogue is the reason to read it.",
+      "chapters": 21,
+      "images": 0,
+      "words": 78934,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/174",
+        "textUrl": "https://www.gutenberg.org/cache/epub/174/pg174-images.html",
+        "gutenbergId": 174,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "the-adventures-of-sherlock-holmes",
+      "title": "The Adventures of Sherlock Holmes",
+      "author": "Arthur Conan Doyle",
+      "year": 1892,
+      "kind": "Short stories",
+      "blurb": "Twelve stories, including A Scandal in Bohemia and The Speckled Band. The best place to start.",
+      "chapters": 14,
+      "images": 0,
+      "words": 104417,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/1661",
+        "textUrl": "https://www.gutenberg.org/cache/epub/1661/pg1661-images.html",
+        "gutenbergId": 1661,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "the-memoirs-of-sherlock-holmes",
+      "title": "The Memoirs of Sherlock Holmes",
+      "author": "Arthur Conan Doyle",
+      "year": 1894,
+      "kind": "Short stories",
+      "blurb": "Eleven stories, ending at the Reichenbach Falls.",
+      "chapters": 12,
+      "images": 3,
+      "words": 95399,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/834",
+        "textUrl": "https://www.gutenberg.org/cache/epub/834/pg834-images.html",
+        "gutenbergId": 834,
+        "rights": "Public domain in the United States (published before 1929).",
+        "illustrations": "Original magazine illustrations from the Gutenberg HTML edition; public domain."
+      }
+    },
+    {
+      "slug": "the-jungle-book",
+      "title": "The Jungle Book",
+      "author": "Rudyard Kipling",
+      "year": 1894,
+      "kind": "Short stories",
+      "shelf": "Start here",
+      "level": "Moderate",
+      "blurb": "Mowgli, Rikki-Tikki-Tavi, and the law of the jungle.",
+      "chapters": 8,
+      "images": 47,
+      "words": 49471,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/236",
+        "textUrl": "https://www.gutenberg.org/cache/epub/236/pg236-images.html",
+        "gutenbergId": 236,
+        "rights": "Public domain in the United States (published before 1929).",
+        "illustrations": "Original magazine illustrations from the Gutenberg HTML edition; public domain."
+      }
+    },
+    {
+      "slug": "the-time-machine",
+      "title": "The Time Machine",
+      "author": "H. G. Wells",
+      "year": 1895,
+      "kind": "Novella",
+      "shelf": "Science fiction",
+      "level": "Moderate",
+      "blurb": "Short, and the book that fixed the shape of every time-travel story after it.",
+      "chapters": 16,
+      "images": 0,
+      "words": 32040,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/35",
+        "textUrl": "https://www.gutenberg.org/cache/epub/35/pg35-images.html",
+        "gutenbergId": 35,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "dracula",
+      "title": "Dracula",
+      "author": "Bram Stoker",
+      "year": 1897,
+      "kind": "Novel",
+      "shelf": "Gothic & mystery",
+      "level": "Harder",
+      "blurb": "Told entirely in letters, diaries and telegrams, so it reads in short bursts.",
+      "chapters": 29,
+      "images": 1,
+      "words": 160760,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/345",
+        "textUrl": "https://www.gutenberg.org/cache/epub/345/pg345-images.html",
+        "gutenbergId": 345,
+        "rights": "Public domain in the United States (published before 1929).",
+        "illustrations": "Original magazine illustrations from the Gutenberg HTML edition; public domain."
+      }
+    },
+    {
+      "slug": "the-invisible-man",
+      "title": "The Invisible Man",
+      "author": "H. G. Wells",
+      "year": 1897,
+      "kind": "Novel",
+      "shelf": "Science fiction",
+      "level": "Moderate",
+      "blurb": "Less a science story than a study of a man with no reason left to behave.",
+      "chapters": 28,
+      "images": 0,
+      "words": 48073,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/5230",
+        "textUrl": "https://www.gutenberg.org/cache/epub/5230/pg5230-images.html",
+        "gutenbergId": 5230,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "the-war-of-the-worlds",
+      "title": "The War of the Worlds",
+      "author": "H. G. Wells",
+      "year": 1898,
+      "kind": "Novel",
+      "shelf": "Science fiction",
+      "level": "Moderate",
+      "blurb": "An invasion reported like journalism, street by street across Surrey and London.",
+      "chapters": 27,
+      "images": 0,
+      "words": 59757,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/36",
+        "textUrl": "https://www.gutenberg.org/cache/epub/36/pg36-images.html",
+        "gutenbergId": 36,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "the-wonderful-wizard-of-oz",
+      "title": "The Wonderful Wizard of Oz",
+      "author": "L. Frank Baum",
+      "year": 1900,
+      "kind": "Novel",
+      "shelf": "Start here",
+      "level": "Easier",
+      "blurb": "Written deliberately in plain modern English, and illustrated by W. W. Denslow.",
+      "chapters": 25,
+      "images": 0,
+      "words": 39292,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/55",
+        "textUrl": "https://www.gutenberg.org/cache/epub/55/pg55-images.html",
+        "gutenbergId": 55,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "the-hound-of-the-baskervilles",
+      "title": "The Hound of the Baskervilles",
+      "author": "Arthur Conan Doyle",
+      "year": 1902,
+      "kind": "Novel",
+      "blurb": "The most famous of the novels: a moor, a legend, and a very large dog.",
+      "chapters": 16,
+      "images": 0,
+      "words": 59071,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/2852",
+        "textUrl": "https://www.gutenberg.org/cache/epub/2852/pg2852-images.html",
+        "gutenbergId": 2852,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "just-so-stories",
+      "title": "Just So Stories",
+      "author": "Rudyard Kipling",
+      "year": 1902,
+      "kind": "Short stories",
+      "shelf": "Start here",
+      "level": "Easier",
+      "blurb": "How the leopard got his spots, and so on. Written to be read aloud.",
+      "chapters": 13,
+      "images": 0,
+      "words": 27149,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/2781",
+        "textUrl": "https://www.gutenberg.org/cache/epub/2781/pg2781-images.html",
+        "gutenbergId": 2781,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "the-call-of-the-wild",
+      "title": "The Call of the Wild",
+      "author": "Jack London",
+      "year": 1903,
+      "kind": "Novel",
+      "shelf": "Adventure",
+      "level": "Moderate",
+      "blurb": "Short, fierce, and told largely from a dog's point of view.",
+      "chapters": 7,
+      "images": 0,
+      "words": 31718,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/215",
+        "textUrl": "https://www.gutenberg.org/cache/epub/215/pg215-images.html",
+        "gutenbergId": 215,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "the-return-of-sherlock-holmes",
+      "title": "The Return of Sherlock Holmes",
+      "author": "Arthur Conan Doyle",
+      "year": 1905,
+      "kind": "Short stories",
+      "blurb": "Thirteen stories written after public pressure brought Holmes back from the dead.",
+      "chapters": 13,
+      "images": 12,
+      "words": 111976,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/108",
+        "textUrl": "https://www.gutenberg.org/cache/epub/108/pg108-images.html",
+        "gutenbergId": 108,
+        "rights": "Public domain in the United States (published before 1929).",
+        "illustrations": "Original magazine illustrations from the Gutenberg HTML edition; public domain."
+      }
+    },
+    {
+      "slug": "anne-of-green-gables",
+      "title": "Anne of Green Gables",
+      "author": "L. M. Montgomery",
+      "year": 1908,
+      "kind": "Novel",
+      "shelf": "Classics",
+      "level": "Moderate",
+      "blurb": "Warm, funny, and full of a talkative narrator who explains herself constantly.",
+      "chapters": 38,
+      "images": 0,
+      "words": 102040,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/45",
+        "textUrl": "https://www.gutenberg.org/cache/epub/45/pg45-images.html",
+        "gutenbergId": 45,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "the-wind-in-the-willows",
+      "title": "The Wind in the Willows",
+      "author": "Kenneth Grahame",
+      "year": 1908,
+      "kind": "Novel",
+      "shelf": "Classics",
+      "level": "Moderate",
+      "blurb": "A riverbank, four animals, and some of the most careful English prose of its century.",
+      "chapters": 12,
+      "images": 12,
+      "words": 58503,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/27805",
+        "textUrl": "https://www.gutenberg.org/cache/epub/27805/pg27805-images.html",
+        "gutenbergId": 27805,
+        "rights": "Public domain in the United States (published before 1929).",
+        "illustrations": "Original magazine illustrations from the Gutenberg HTML edition; public domain."
+      }
+    },
+    {
+      "slug": "the-secret-garden",
+      "title": "The Secret Garden",
+      "author": "Frances Hodgson Burnett",
+      "year": 1911,
+      "kind": "Novel",
+      "shelf": "Classics",
+      "level": "Moderate",
+      "blurb": "Gentle and slow in a good way. Some Yorkshire dialect in the dialogue.",
+      "chapters": 27,
+      "images": 0,
+      "words": 80324,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/113",
+        "textUrl": "https://www.gutenberg.org/cache/epub/113/pg113-images.html",
+        "gutenbergId": 113,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "peter-pan",
+      "title": "Peter Pan",
+      "author": "J. M. Barrie",
+      "year": 1911,
+      "kind": "Novel",
+      "shelf": "Classics",
+      "level": "Moderate",
+      "blurb": "Stranger and more melancholy than the films let on.",
+      "chapters": 17,
+      "images": 0,
+      "words": 47025,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/16",
+        "textUrl": "https://www.gutenberg.org/cache/epub/16/pg16-images.html",
+        "gutenbergId": 16,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    },
+    {
+      "slug": "the-valley-of-fear",
+      "title": "The Valley of Fear",
+      "author": "Arthur Conan Doyle",
+      "year": 1915,
+      "kind": "Novel",
+      "blurb": "The last novel, half English country house and half Pennsylvania coal country.",
+      "chapters": 15,
+      "images": 7,
+      "words": 57569,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/3289",
+        "textUrl": "https://www.gutenberg.org/cache/epub/3289/pg3289-images.html",
+        "gutenbergId": 3289,
+        "rights": "Public domain in the United States (published before 1929).",
+        "illustrations": "Original magazine illustrations from the Gutenberg HTML edition; public domain."
+      }
+    },
+    {
+      "slug": "his-last-bow",
+      "title": "His Last Bow",
+      "author": "Arthur Conan Doyle",
+      "year": 1917,
+      "kind": "Short stories",
+      "blurb": "Seven late stories, with Holmes retired to keep bees on the Sussex Downs.",
+      "chapters": 9,
+      "images": 0,
+      "words": 58759,
+      "source": {
+        "name": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/2350",
+        "textUrl": "https://www.gutenberg.org/cache/epub/2350/pg2350-images.html",
+        "gutenbergId": 2350,
+        "rights": "Public domain in the United States (published before 1929)."
+      }
+    }
+  ]
 }
