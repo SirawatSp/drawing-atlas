@@ -108,10 +108,11 @@
     box.setAttribute("data-img-done", "1");
 
     var wiki = box.getAttribute("data-img-wiki");
+    var lang = box.getAttribute("data-img-lang") || "en";
     var alt = box.getAttribute("data-img-alt") || "";
     var wantCredit = box.getAttribute("data-img-credit") === "1";
 
-    IMG.resolve({ wiki: wiki }).then(function (data) {
+    IMG.resolve({ wiki: wiki, lang: lang }).then(function (data) {
       if (!data) { box.setAttribute("data-img-state", "none"); return; }
 
       var img = document.createElement("img");
@@ -169,6 +170,7 @@
       ? '<a class="row-thumb" href="' + attr(href) + '" tabindex="-1"' +
         (grid ? "" : ' aria-hidden="true"') +
         ' data-img-wiki="' + attr(entry.image.wiki) + '"' +
+        (entry.image.lang ? ' data-img-lang="' + attr(entry.image.lang) + '"' : "") +
         ' data-img-alt="' + attr(grid ? entry.name : "") + '">' + placeholderHTML(entry, cat) + "</a>"
       : "";
 
@@ -526,6 +528,7 @@
         (entry.image && entry.image.wiki
           ? '<figure class="hero">' +
               '<div class="hero-frame" data-img-wiki="' + attr(entry.image.wiki) + '"' +
+        (entry.image.lang ? ' data-img-lang="' + attr(entry.image.lang) + '"' : "") +
                 ' data-img-alt="' + attr(entry.name + " — reference image") + '"' +
                 ' data-img-credit="1">' + placeholderHTML(entry, cat) + "</div>" +
               '<figcaption class="fig-cap">' +

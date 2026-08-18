@@ -18,7 +18,18 @@ const VERBOSE = process.argv.includes("--verbose");
 const AS_JSON = process.argv.includes("--json");
 const CONCURRENCY = 5;
 const TIMEOUT_MS = 15000;
-const SUMMARY = "https://en.wikipedia.org/api/rest_v1/page/summary/";
+// Entries may name the wiki they belong to; the Himmapan bestiary has creatures
+// written up only in Thai. A key is "title" for English, "th:title" otherwise.
+const LANGS = new Set(["en", "th"]);
+const summaryUrl = (lang) =>
+  `https://${LANGS.has(lang) ? lang : "en"}.wikipedia.org/api/rest_v1/page/summary/`;
+const keyOf = (wiki, lang) => (!lang || lang === "en" ? wiki : lang + ":" + wiki);
+const splitKey = (key) => {
+  const i = key.indexOf(":");
+  return i > 0 && LANGS.has(key.slice(0, i))
+    ? { lang: key.slice(0, i), title: key.slice(i + 1) }
+    : { lang: "en", title: key };
+};
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const dataDir = path.join(root, "data");
@@ -30,7 +41,10 @@ for (const file of (await readdir(dataDir)).filter((f) => f.endsWith(".js")).sor
     ATLAS: {
       register(cat) {
         for (const e of cat.entries ?? []) {
-          entries.push({ cat: cat.id, id: e.id, name: e.name, wiki: e.image?.wiki ?? null });
+          entries.push({
+            cat: cat.id, id: e.id, name: e.name,
+            wiki: e.image?.wiki ? keyOf(e.image.wiki, e.image.lang) : null,
+          });
         }
       }
     }
@@ -45,11 +59,12 @@ const targets = entries.filter((e) => e.wiki);
 const titles = [...new Set(targets.map((e) => e.wiki))];
 if (!AS_JSON) console.log(`Resolving ${titles.length} distinct articles for ${targets.length} entries…\n`);
 
-async function resolve(title) {
+async function resolve(key) {
+  const { lang, title } = splitKey(key);
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
-    const res = await fetch(SUMMARY + encodeURIComponent(title.replace(/ /g, "_")), {
+    const res = await fetch(summaryUrl(lang) + encodeURIComponent(title.replace(/ /g, "_")), {
       signal: controller.signal,
       headers: {
         accept: "application/json",
@@ -57,16 +72,17 @@ async function resolve(title) {
       }
     });
     clearTimeout(timer);
-    if (res.status === 404) return { title, status: "no-article" };
-    if (!res.ok) return { title, status: "error", detail: "HTTP " + res.status };
+    if (res.status === 404) return { key, title, status: "no-article" };
+    if (!res.ok) return { key, title, status: "error", detail: "HTTP " + res.status };
 
     const json = await res.json();
     // A redirect is fine, but worth surfacing: the title in data/ is stale.
     const landed = json.titles?.canonical ?? json.title;
     const redirected = landed && landed.replace(/ /g, "_") !== title.replace(/ /g, "_");
 
-    if (!json.thumbnail?.source) return { title, status: "no-image", landed, redirected };
+    if (!json.thumbnail?.source) return { key, title, status: "no-image", landed, redirected };
     return {
+      key,
       title,
       status: "ok",
       landed,
@@ -76,7 +92,7 @@ async function resolve(title) {
     };
   } catch (err) {
     clearTimeout(timer);
-    return { title, status: "error", detail: err.name === "AbortError" ? "timeout" : err.message };
+    return { key, title, status: "error", detail: err.name === "AbortError" ? "timeout" : err.message };
   }
 }
 
@@ -95,7 +111,7 @@ async function pool(items, size, worker) {
 }
 
 const results = await pool(titles, CONCURRENCY, resolve);
-const byTitle = new Map(results.map((r) => [r.title, r]));
+const byTitle = new Map(results.map((r) => [r.key, r]));
 
 const buckets = { ok: [], "no-image": [], "no-article": [], error: [] };
 for (const e of targets) buckets[byTitle.get(e.wiki).status].push(e);

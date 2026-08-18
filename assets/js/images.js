@@ -22,12 +22,25 @@
   var MISS_TTL = 24 * 60 * 60 * 1000; //  1 day, so a blip is not permanent
   var TIMEOUT = 12000;
 
-  var SUMMARY = "https://en.wikipedia.org/api/rest_v1/page/summary/";
   var COMMONS = "https://commons.wikimedia.org/w/api.php";
+
+  /* Some subjects are only written up in one language. The Himmapan bestiary is
+     the case in point: Garuda and Nāga have English articles, but คชสีห์ and
+     อัปสรสีห์ exist only on Thai Wikipedia. Pointing those at a loosely related
+     English article would show a confidently wrong picture, which is worse than
+     showing none, so an entry may name the wiki it belongs to. */
+  var LANGS = { en: 1, th: 1 };
+  function summaryUrl(lang) {
+    return "https://" + (LANGS[lang] ? lang : "en") + ".wikipedia.org/api/rest_v1/page/summary/";
+  }
+  function pageUrl(lang, key) {
+    return "https://" + (LANGS[lang] ? lang : "en") + ".wikipedia.org/wiki/" +
+      encodeURIComponent(key.replace(/ /g, "_"));
+  }
 
   // Only ever hand back media URLs on hosts we expect. The URLs come from an
   // API response, so this is defence in depth rather than a likely attack.
-  var ALLOWED_HOSTS = /^(upload\.wikimedia\.org|commons\.wikimedia\.org|en\.wikipedia\.org)$/;
+  var ALLOWED_HOSTS = /^(upload\.wikimedia\.org|commons\.wikimedia\.org|(en|th)\.wikipedia\.org)$/;
 
   var cache = load();
   var inflight = Object.create(null);
@@ -108,13 +121,16 @@
    */
   function resolve(spec) {
     if (!spec || !spec.wiki) return Promise.resolve(null);
-    var key = spec.wiki;
+    var lang = LANGS[spec.lang] ? spec.lang : "en";
+    // The cache key carries the language: the same title can name different
+    // articles on different wikis.
+    var key = (lang === "en" ? "" : lang + ":") + spec.wiki;
 
     var rec = cache[key];
     if (fresh(rec)) return Promise.resolve(rec.miss ? null : rec.data);
     if (inflight[key]) return inflight[key];
 
-    var url = SUMMARY + encodeURIComponent(key.replace(/ /g, "_"));
+    var url = summaryUrl(lang) + encodeURIComponent(spec.wiki.replace(/ /g, "_"));
 
     inflight[key] = getJSON(url)
       .then(function (json) {
@@ -128,8 +144,8 @@
           width: (json.thumbnail && json.thumbnail.width) || null,
           height: (json.thumbnail && json.thumbnail.height) || null,
           page: safeUrl(json.content_urls && json.content_urls.desktop && json.content_urls.desktop.page) ||
-                "https://en.wikipedia.org/wiki/" + encodeURIComponent(key),
-          title: json.title || key,
+                pageUrl(lang, spec.wiki),
+          title: json.title || spec.wiki,
           file: fileNameFrom(full || thumb)
         };
         cache[key] = { at: Date.now(), data: data };
