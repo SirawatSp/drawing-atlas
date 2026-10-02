@@ -350,9 +350,44 @@
     return out;
   }
 
+  function viewPromptCalendar(cat) {
+    var st = A.statsFor(cat.entries);
+    var weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    var cells = '<li class="calendar-blank" aria-hidden="true"></li>'.repeat(3);
+    cells += cat.entries.map(function (entry, index) {
+      var s = A.state(entry.key);
+      var day = index + 1;
+      var href = "#/c/" + cat.id + "/" + entry.id;
+      var gloss = (entry.sub || "").split(" · ").slice(1).join(" · ");
+      return '<li class="row prompt-card" data-key="' + attr(entry.key) + '" data-done="' + s.done + '">' +
+        '<a class="prompt-link" href="' + attr(href) + '" aria-label="' + attr("October " + day + ": " + entry.name) + '">' +
+          '<span class="prompt-date"><b>' + String(day).padStart(2, "0") + '</b><span>' + weekdays[(index + 3) % 7] + '</span></span>' +
+          '<strong class="prompt-word">' + esc(entry.name) + '</strong>' +
+          '<span class="prompt-gloss" lang="th">' + esc(gloss) + '</span>' +
+        '</a>' +
+        '<div class="prompt-actions"><label><input class="check" type="checkbox" data-act="done" ' + (s.done ? "checked " : "") +
+          'aria-label="' + attr("Mark " + entry.name + " as studied") + '"><span>Studied</span></label>' +
+          '<button class="star" type="button" data-act="star" aria-pressed="' + s.star + '" aria-label="' + attr("Star " + entry.name) + '">' + ICON.star + '</button></div>' +
+        '</li>';
+    }).join("");
+    cells += '<li class="calendar-blank" aria-hidden="true"></li>';
+    main.innerHTML = '<a class="backlink" href="#/">' + ICON.back + 'All categories</a>' +
+      '<div class="page-head calendar-head"><p class="eyebrow">October 2026 · 31 drawing prompts</p><h1>Inktober 2026</h1>' +
+      '<p class="lede">One word each day. Pick a card to explore its meaning, lore and drawing ideas.</p></div>' +
+      '<section class="overview" aria-label="Category progress" style="--p:' + st.pct + '%"><div class="stats">' +
+      '<div class="stat"><b>31</b><span>subjects</span></div><div class="stat"><b>' + st.done + '</b><span>studied</span></div>' +
+      '<div class="stat"><b>' + st.starred + '</b><span>starred</span></div><div class="stat"><b>' + st.noted + '</b><span>with notes</span></div></div></section>' +
+      '<section class="prompt-calendar" aria-label="October 2026 prompt calendar"><div class="calendar-weekdays" aria-hidden="true">' +
+      weekdays.map(function (day) { return '<span>' + day + '</span>'; }).join("") + '</div>' +
+      '<ol class="calendar-grid">' + cells + '</ol></section>' +
+      '<p class="calendar-source"><a href="https://inktober.substack.com/p/2026-prompt-list" target="_blank" rel="noopener noreferrer">Official Inktober 2026 prompt list</a></p>';
+    document.title = cat.name + " · Drawing Atlas";
+  }
+
   function viewCategory(catId) {
     var cat = A.getCategory(catId);
     if (!cat) return viewNotFound();
+    if (catId === "inktober-2026") return viewPromptCalendar(cat);
 
     var filter = A.getPref("filter." + catId, "all");
     var sortKey = A.getPref("sort." + catId, "default");

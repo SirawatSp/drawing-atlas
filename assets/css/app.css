@@ -1083,3 +1083,50 @@ textarea.note::placeholder { color: var(--ink-3); }
 .level[data-level="easier"]   { color: var(--done); }
 .level[data-level="moderate"] { color: var(--accent); }
 .level[data-level="harder"]   { color: var(--danger); }
+
+/* October prompts: keep every day visible, independent of list preferences. */
+.calendar-head { margin-bottom: 1.2rem; }
+.calendar-head .lede { max-width: 65ch; }
+.calendar-weekdays, .calendar-grid {
+  display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: .65rem;
+}
+.calendar-weekdays { margin: 1.5rem 0 .65rem; }
+.calendar-weekdays span {
+  padding-left: .8rem; color: var(--ink-3); font-size: .875rem;
+}
+.calendar-grid { list-style: none; margin: 0; padding: 0; }
+.row.prompt-card {
+  display: flex; flex-direction: column; align-items: stretch; gap: 0;
+  min-width: 0; padding: 0; overflow: hidden; border-radius: var(--r-md);
+}
+.prompt-link {
+  display: flex; flex: 1; flex-direction: column; gap: .5rem;
+  padding: .8rem; min-height: 140px; color: var(--ink); text-decoration: none;
+}
+.prompt-link:hover .prompt-word { color: var(--accent); }
+.prompt-link:focus-visible { outline: 2px solid var(--focus); outline-offset: -3px; }
+.prompt-date { display: flex; align-items: baseline; justify-content: space-between; gap: .4rem; }
+.prompt-date b { font-family: var(--serif); font-size: 1.75rem; line-height: 1; font-weight: 400; }
+.prompt-date > span { display: none; color: var(--ink-3); font-size: .875rem; }
+.prompt-word { font-family: var(--serif); font-size: 1.125rem; line-height: 1.2; overflow-wrap: anywhere; }
+.prompt-gloss { color: var(--ink-2); font-size: .875rem; line-height: 1.5; }
+.prompt-actions {
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid var(--line); padding: .4rem .7rem; gap: .25rem;
+}
+.prompt-actions label { display: flex; align-items: center; gap: .4rem; min-height: 36px; cursor: pointer; }
+.prompt-actions label span { font-size: .875rem; color: var(--ink-3); }
+.prompt-actions .check { margin: 0; }
+.prompt-actions .star { min-width: 36px; min-height: 36px; }
+.prompt-card[data-done="true"] .prompt-date b { color: var(--done); }
+.prompt-card[data-done="true"] .prompt-word { color: var(--ink-3); text-decoration: line-through; }
+.calendar-source { margin-top: 1.5rem; font-size: .875rem; color: var(--ink-3); }
+@media (max-width: 950px) {
+  .calendar-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .calendar-weekdays, .calendar-blank { display: none; }
+  .prompt-date > span { display: inline; }
+}
+@media (max-width: 540px) {
+  .calendar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
+  .prompt-link { min-height: 130px; }
+}
