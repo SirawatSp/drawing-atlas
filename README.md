@@ -20,8 +20,10 @@ summary was built from, so nothing has to be taken on trust.
 | Chinese lore & gods | 20 | Creation figures, the celestial bureaucracy, the Four Symbols |
 | Japanese kami & yōkai | 18 | Shintō deities and the uncanny things at the edge of the village |
 | Norse gods | 17 | Æsir, Vanir, giants, and the cosmology they are all falling through |
+| Himmapan bestiary | 21 | Thai mythical creatures and their identifying forms |
+| Inktober 2026 | 31 | Official daily prompts, meanings, word histories, context and original drawing directions |
 
-**198 subjects, 437 reference links.**
+**250 subjects, 518 reference links.**
 
 Companion to two books worth owning:
 
@@ -63,13 +65,25 @@ node scripts/check-images.mjs            # summary
 node scripts/check-images.mjs --verbose  # every resolved URL
 ```
 
-It resolves all 198 against the live API and reports which articles don't exist,
+It resolves all subjects against the live API and reports which articles don't exist,
 which have no lead image, and which titles have gone stale via a redirect.
 
 **Licensing:** Wikipedia lead images are freely licensed but not all public
 domain — many are CC BY-SA. The hero caption shows the author and licence pulled
 from Commons for that specific file, which is why attribution is fetched rather
 than assumed.
+
+## Inktober 2026
+
+The [official 2026 prompt list](https://inktober.substack.com/p/2026-prompt-list)
+is available as its own category, in day order. Every prompt includes a Thai
+gloss, researched English meanings and context, two drawing notes, an image
+reference, and links to the dictionary or cultural sources used.
+
+Original drawing interpretations are labelled separately from documented lore.
+Images illustrate one possible subject for a word, not every sense; abstract
+prompts use a related figure, object or setting. Use **Day** grouping for the
+October sequence or **Subject type** to compare similar prompts.
 
 ## Each entry gives you
 
